@@ -58,7 +58,6 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1300, 800));
-        setResizable(false);
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setMaximumSize(new java.awt.Dimension(1300, 800));

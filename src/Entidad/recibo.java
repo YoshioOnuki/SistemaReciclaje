@@ -10,7 +10,8 @@ package Entidad;
  * @author yoshi
  */
 public class recibo {
-    private int ReciNum;
+    private int ReciID;
+    private String ReciNum;
     private String ReciFecha;
     private int ReciEstd;
     private double ReciMonto;
@@ -19,20 +20,22 @@ public class recibo {
     public recibo() {
     }
 
-    public recibo(int ReciNum, String ReciFecha, int ReciEstd, double ReciMonto, int ClienID) {
+    public recibo(int ReciID, String ReciNum, String ReciFecha, int ReciEstd, double ReciMonto, int ClienID) {
+        this.ReciID = ReciID;
         this.ReciNum = ReciNum;
         this.ReciFecha = ReciFecha;
         this.ReciEstd = ReciEstd;
         this.ReciMonto = ReciMonto;
         this.ClienID = ClienID;
     }
+    
 
     public int getReciNum() {
-        return ReciNum;
+        return ReciID;
     }
 
     public void setReciNum(int ReciNum) {
-        this.ReciNum = ReciNum;
+        this.ReciID = ReciNum;
     }
 
     public String getReciFecha() {

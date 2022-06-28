@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="GrupBotones">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -41,42 +45,45 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="dni" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="nombre" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="apellido" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txtNombre" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="txtDNI" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="txtApe" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                          <Component id="nombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="apellido" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dni" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="txtDNI" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                              <Component id="btnSoyCliente" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="txtApe" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtNombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="texto2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="direccion" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="email" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtDirec" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="direccion" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="email" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="txtDirec" max="32767" attributes="0"/>
-                                                  <Component id="txtEmail" max="32767" attributes="0"/>
-                                              </Group>
+                                              <Component id="rbtImprimir" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                                              <Component id="rbtCorreo" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="texto2" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="email1" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnSoyCliente" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                              <Component id="email2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -92,9 +99,9 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lblPrecio1" min="-2" pref="80" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                      <Component id="lblNombre3" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Component id="txtTotal" min="-2" pref="100" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="btnRecibo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnRecibo" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -122,13 +129,28 @@
                       <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+                              <Component id="texto1" min="-2" pref="30" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="250" max="-2" attributes="0"/>
+                              <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblPrecio1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="txtTotal" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                              <Component id="btnRecibo" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="texto2" min="-2" pref="30" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="btnSoyCliente" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="dni" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtDNI" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="email1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="dni" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDNI" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="btnSoyCliente" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -145,23 +167,18 @@
                                   <Component id="direccion" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtDirec" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="email2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="rbtImprimir" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rbtCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="texto1" min="-2" pref="30" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="250" max="-2" attributes="0"/>
-                              <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblPrecio1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="lblNombre3" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
-                              <Component id="btnRecibo" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -363,13 +380,10 @@
           <Color blue="73" green="86" red="4b" type="rgb"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[115, 50]"/>
+          <Dimension value="[30, 29]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[115, 50]"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[115, 50]"/>
+          <Dimension value="[30, 29]"/>
         </Property>
       </Properties>
       <Events>
@@ -381,14 +395,17 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="lblSoyCliente" alignment="1" pref="115" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="lblSoyCliente" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="lblSoyCliente" min="-2" pref="49" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                  <Component id="lblSoyCliente" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -403,15 +420,17 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Soy cliente"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagen/Iconlupa.png"/>
+            </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[100, 38]"/>
+              <Dimension value="[30, 29]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[100, 38]"/>
+              <Dimension value="[30, 29]"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[100, 38]"/>
+              <Dimension value="[30, 29]"/>
             </Property>
           </Properties>
         </Component>
@@ -435,17 +454,8 @@
         <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="atrasMouseExited"/>
       </Events>
 
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="atrasIcon" alignment="0" pref="40" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="atrasIcon" alignment="0" pref="40" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="atrasIcon">
@@ -455,6 +465,11 @@
               <Image iconType="3" name="/Imagen/Atras.png"/>
             </Property>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="0" y="0" width="40" height="40"/>
+            </Constraint>
+          </Constraints>
         </Component>
       </SubComponents>
     </Container>
@@ -550,10 +565,45 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="tablaProd">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SF UI Display" size="17" style="0"/>
+            </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="0" rowCount="0"/>
+              <Table columnCount="4" rowCount="0">
+                <Column editable="false" title="ID PROD" type="java.lang.Object"/>
+                <Column editable="false" title="DESCRIPCION" type="java.lang.Object"/>
+                <Column editable="false" title="CANTIDAD" type="java.lang.Object"/>
+                <Column editable="true" title="IMPORTE" type="java.lang.Object"/>
+              </Table>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="90" minWidth="90" prefWidth="90" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
         </Component>
@@ -564,10 +614,10 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SF UI Display" size="20" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Precio: "/>
+        <Property name="text" type="java.lang.String" value="Total: "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblNombre3">
+    <Component class="javax.swing.JLabel" name="txtTotal">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SF UI Display" size="20" style="0"/>
@@ -580,7 +630,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SF UI Display" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="DNI:"/>
+        <Property name="text" type="java.lang.String" value="DNI  *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDNI">
@@ -604,7 +654,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SF UI Display" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Nombres:"/>
+        <Property name="text" type="java.lang.String" value="Nombres  *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombre">
@@ -628,7 +678,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SF UI Display" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Apellidos:"/>
+        <Property name="text" type="java.lang.String" value="Apellidos  *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtApe">
@@ -652,7 +702,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SF UI Display" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
+        <Property name="text" type="java.lang.String" value="Direcci&#xf3;n  *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDirec">
@@ -676,7 +726,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SF UI Display" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Email:"/>
+        <Property name="text" type="java.lang.String" value="Email  *"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmail">
@@ -694,6 +744,50 @@
           <Dimension value="[350, 29]"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="email1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="SF UI Display" size="15" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Si usted es cliente, busque su informaci&#xf3;n mediante su DNI precionando la lupa."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="email2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="SF UI Display" size="15" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="&#xbf;Desea imprimir Voucher o  enviar  al Correo?"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="rbtImprimir">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="GrupBotones"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="SF UI Display" size="15" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Imprimir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtImprimirActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="rbtCorreo">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="GrupBotones"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="SF UI Display" size="15" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Correo"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtCorreoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

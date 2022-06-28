@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
 /**
@@ -26,23 +27,25 @@ public class ModuloIngProd extends javax.swing.JPanel {
         
     int cantRegs;
     int regActual = 0;
-    Vector vecPro;
-    Object[] ob = new Object[4];
     DefaultTableModel mpro = new DefaultTableModel();
+    int cPlastico = 1;
+    int cLata = 1;
+    int cCarton = 1;
+    int cVidrio = 1;
+    int cBateria = 1;
+    public static double total=0;
+    public static int fila=0;
+    public static TableModel tModel;
     
     public ModuloIngProd() {
         initComponents();
         limpiarControles();
         mostrarProductos();
-        
+        tablaProd.setRowHeight(25);//Damos un tamaño predeterminado a la tabla
         
     }
     
-//    void coloBotones(){
-//        btnAnterior.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.blue));
-//        btnSiguiente.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.blue));
-//    }
-    
+    //Limpiamos los campos del producto
     public void limpiarControles() {
         this.txtNombre.setText("Seleccione");
         this.txtPrecio.setText("Seleccione");
@@ -51,7 +54,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
     }
     
 
-    
+    //Botones de navegacion para los productos a introducir
     public void navega(int adonde) {
         cantRegs = modpro.SacarContProd() + 2;
         
@@ -74,9 +77,9 @@ public class ModuloIngProd extends javax.swing.JPanel {
         }
     }
     
+    //Mostramos los productos a introducir en la recicladora
     public void mostrarProductos() {
-//        vecPro = modpro.listarProd();
-//        cantRegs = vecPro.size();
+        
         limpiarControles();
         if (cantRegs > 0) {
             
@@ -107,6 +110,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
         } 
     }
     
+    //Agrega el producto introducido en la tabla para visualizar el detalle
     void agregarProd(){
         
         if(txtNombre.getText() == "Seleccione" || txtPrecio.getText() == "Seleccione"){
@@ -116,36 +120,67 @@ public class ModuloIngProd extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Producto introducido No Válido");
             }else{
                 String nombre = txtNombre.getText();
-                int precio = Integer.parseInt(txtPrecio.getText());
+                double precio = Double.parseDouble(txtPrecio.getText());
+                int valida = 1, posProd = 0;
+                double importe;
                 
-//                if()
-//                
-//                ob[0] = dni;
-//                ob[1] = nom;
-//                ob[2] = apep;
-//                ob[3] = apem;
-//                ob[4] = gen;
-//                ob[5] = fechana;
-//                ob[6] = fechaingreso;
-//                ob[7] = null;
-//                ob[8] = est;
-//                ob[9] = null;
-//                ob[10] = iA;
-//
-//                int r1 = empMod.addEmpleado(ob);
-//
-//                if(r1>0){
-//                    JOptionPane.showMessageDialog(null, "Datos de empleado ingresados correctamente");
-//                }
-//
-//                ModuloEmp mEmp = new ModuloEmp();
-//
-//                mEmp.setSize(new Dimension(970, 600));
-//                mEmp.setLocation(0,0);
-//                Principal.PanelPrincipal.removeAll();
-//                Principal.PanelPrincipal.add(mEmp, BorderLayout.CENTER);
-//                Principal.PanelPrincipal.revalidate();
-//                Principal.PanelPrincipal.repaint();
+                mpro = (DefaultTableModel) tablaProd.getModel();
+                
+                for(int i=0; i<tablaProd.getRowCount(); i++){
+                    if(regActual == Integer.parseInt(tablaProd.getValueAt(i, 0).toString())){
+                        valida = 2;
+                        posProd = i;
+                        break;
+                    }
+                }
+                
+                Object[] ob = new Object[4];
+                
+                if(valida == 1){
+                    ob[0] = regActual;
+                    ob[1] = nombre;
+                    ob[2] = 1;
+                    ob[3] = precio;
+                    
+                    mpro.addRow(ob);
+                    tablaProd.setModel(mpro);
+                }else{
+                    switch (regActual) {
+                    case 1:
+                        cPlastico++;
+                        importe = cPlastico * precio;
+                        tablaProd.setValueAt(cPlastico, posProd, 2);
+                        tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                        break;
+                    case 2:
+                        cLata++;
+                        importe=cLata * precio;
+                        tablaProd.setValueAt(cLata, posProd, 2);
+                        tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                        break;
+                    case 3:
+                        cCarton++;
+                        importe=cCarton * precio;
+                        tablaProd.setValueAt(cCarton, posProd, 2);
+                        tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                        break;
+                    case 4:
+                        cVidrio++;
+                        importe=cVidrio * precio;
+                        tablaProd.setValueAt(cVidrio, posProd, 2);
+                        tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                        break;
+                    case 5:
+                        cBateria++;
+                        importe=cBateria * precio;
+                        tablaProd.setValueAt(cBateria, posProd, 2);
+                        tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                        break;
+                    }
+                }
+                total += precio;
+                txtTotal.setText("S/."+String.format("%.2f", total));
+                
             }
         }
     }
@@ -423,15 +458,35 @@ public class ModuloIngProd extends javax.swing.JPanel {
         texto1.setFont(new java.awt.Font("SF UI Display", 1, 24)); // NOI18N
         texto1.setText("Productos a reciclar");
 
+        tablaProd.setFont(new java.awt.Font("SF UI Display", 0, 17)); // NOI18N
         tablaProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-
+                "ID PROD", "DESCRIPCION", "CANTIDAD", "IMPORTE"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaProd);
+        if (tablaProd.getColumnModel().getColumnCount() > 0) {
+            tablaProd.getColumnModel().getColumn(0).setMinWidth(90);
+            tablaProd.getColumnModel().getColumn(0).setPreferredWidth(90);
+            tablaProd.getColumnModel().getColumn(0).setMaxWidth(90);
+            tablaProd.getColumnModel().getColumn(2).setMinWidth(100);
+            tablaProd.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tablaProd.getColumnModel().getColumn(2).setMaxWidth(100);
+            tablaProd.getColumnModel().getColumn(3).setMinWidth(100);
+            tablaProd.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tablaProd.getColumnModel().getColumn(3).setMaxWidth(100);
+        }
 
         btnContinuar.setBackground(new java.awt.Color(75, 134, 115));
         btnContinuar.setMaximumSize(new java.awt.Dimension(180, 60));
@@ -635,17 +690,25 @@ public class ModuloIngProd extends javax.swing.JPanel {
     }//GEN-LAST:event_sigMouseExited
 
     private void btnContinuarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinuarMouseClicked
-        ModuloIngCliente mCli = new ModuloIngCliente();
+        tModel = tablaProd.getModel();
+        fila = tablaProd.getRowCount();
+        if(tablaProd.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "No se registró productos");
+        }else{
+            ModuloIngCliente mCli = new ModuloIngCliente();
 
-        mCli.setSize(new Dimension(1300, 800));
-        mCli.setLocation(0,0);
-        Main.Fondo.removeAll();
-        Main.Fondo.add(mCli, BorderLayout.CENTER);
-        Main.Fondo.revalidate();
-        Main.Fondo.repaint();
+            mCli.setSize(new Dimension(1300, 800));
+            mCli.setLocation(0,0);
+            Main.Fondo.removeAll();
+            Main.Fondo.add(mCli, BorderLayout.CENTER);
+            Main.Fondo.revalidate();
+            Main.Fondo.repaint();
 
-        mCli.vector1.setVisible(false);
-        mCli.vector3.setVisible(false);
+            mCli.vector1.setVisible(false);
+            mCli.vector3.setVisible(false);
+        }
+        
+        
     }//GEN-LAST:event_btnContinuarMouseClicked
 
     private void btnContinuarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinuarMouseEntered
@@ -657,7 +720,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
     }//GEN-LAST:event_btnContinuarMouseExited
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
-        
+        agregarProd();
     }//GEN-LAST:event_btnAgregarMouseClicked
 
     private void btnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseEntered
@@ -702,7 +765,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
     private javax.swing.JLabel texto2;
     public static javax.swing.JLabel txtNombre;
     public static javax.swing.JLabel txtPrecio;
-    private javax.swing.JLabel txtTotal;
+    public static javax.swing.JLabel txtTotal;
     public static javax.swing.JLabel vector1;
     public static javax.swing.JLabel vector2;
     public static javax.swing.JLabel vector3;
