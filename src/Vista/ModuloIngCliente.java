@@ -5,11 +5,16 @@
  */
 package Vista;
 
+import Entidad.cliente;
+import Modelo.clienteMod;
+import Modelo.detaReciMod;
 import Modelo.reciboMod;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,6 +27,10 @@ import javax.swing.table.DefaultTableModel;
 public class ModuloIngCliente extends javax.swing.JPanel {
     
     Modelo.reciboMod recMod = new reciboMod();
+    Modelo.clienteMod cliMod = new clienteMod();
+    Modelo.detaReciMod detaReciMod = new detaReciMod();
+    Entidad.cliente eClien = new cliente();
+    
     
     DefaultTableModel tModel2;
     Object[] ob = new Object[4];
@@ -87,26 +96,127 @@ public class ModuloIngCliente extends javax.swing.JPanel {
                 if(txtEmail.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Campo de Email sin rellenar");
                 }else{
-                    
+                    ActIngresar();
                 }
             }else{
-                
-            }      
+                ActIngresar();
+            }
         }
-//        else{
-//            if(numTope()!=0){
-//                metodoParaIngresar();
-//            }else{
-//                int input = JOptionPane.showConfirmDialog(null,"¿Ya arreglo la hoja atorada o repuso mas papeles?", "Seleccione una opcion...",JOptionPane.YES_NO_OPTION);
-//
-//                // 0=yes, 1=no
-//                if(input == 0){
-//                   metodoParaIngresar();
-//                }else if(input == 1){
-//                   JOptionPane.showMessageDialog(null, "Ingrese hoja o mire si hay hojas atascadas");
-//                }
-//            }
-//        }
+    }
+    
+    void buscarCliente(){
+        
+        
+        
+    }
+    
+    //Ingresamos todos los datos del cliente, Recibo, Detalle de recibo, Email.
+    void ActIngresar(){
+        //Ingresar datos del cliente
+        String dni= txtDNI.getText();
+        String nom = txtNombre.getText();
+        String ape = txtApe.getText();
+        String direc = txtDirec.getText();
+        String email;
+        
+        Object[] ob = new Object[4];
+        
+        ob[0] = dni;
+        ob[1] = nom;
+        ob[2] = ape;
+        ob[3] = direc;
+        
+        int ClienID = 0;
+        
+        if(cliMod.idClienteDNI(dni)==0){
+            int r1 = cliMod.addCliente(ob);
+            
+            if(r1>0){
+                JOptionPane.showMessageDialog(null, "Los datos del cliente se ingresaron correctamente");
+            }
+            
+            ClienID = cliMod.idCliente();
+        }else{
+            ClienID = cliMod.idClienteDNI(dni);
+        }
+        
+        int c1 = 0;
+                
+        //Ingresar Email del cliente
+        
+        if(!txtEmail.getText().isEmpty()){
+            email = txtEmail.getText();
+            
+            if(cliMod.idEmailDNI(email, dni)==0){
+                Object obCor = new Object();
+                obCor = txtEmail.getText();
+                c1 = cliMod.addCorreo(obCor, ClienID);
+
+                if(c1>0){
+                    JOptionPane.showMessageDialog(null, "El correo del cliente se ingresó correctamente");
+                }
+            }
+            
+        }
+        
+        //Ingresar datos del recibo
+        String RecNum = generarReciNum();
+        double total = this.total;
+        DateTimeFormatter ReciFech = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        String ReciF = ""+ReciFech.format(LocalDateTime.now());
+        int ReciEstd = 1;
+        
+        Object[] obRec = new Object[5];
+        
+        obRec[0] = RecNum;
+        obRec[1] = ReciF;
+        obRec[2] = ReciEstd;
+        obRec[3] = total;
+        obRec[4] = ClienID;
+        
+        int r2 = recMod.addRecibo(obRec);
+        
+        if(r2>0){
+            JOptionPane.showMessageDialog(null, "Datos del recibo ingresados correctamente");
+        }
+        
+        //Ingresar Detalle del Recibo
+        for(int i=0; i<tablaProd.getRowCount(); i++){
+            int ProdID = Integer.parseInt(tablaProd.getValueAt(i, 0).toString());
+            int RecID = recMod.maxReciID();
+            int detaReciCant = Integer.parseInt(tablaProd.getValueAt(i, 2).toString());
+            double importe = Double.parseDouble(tablaProd.getValueAt(i, 3).toString());
+
+            Object[] obDet = new Object[4];
+
+            obDet[0] = detaReciCant;
+            obDet[1] = importe;
+            obDet[2] = RecID;
+            obDet[3] = ProdID;
+
+            detaReciMod.addDetaRecibo(obDet);
+        }
+        
+        JOptionPane.showMessageDialog(null, "Datos de Detalle del Recibo ingresados correctamente");
+        
+        eClien = cliMod.datosCliente(ClienID);
+        
+        if(txtEmail.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Imprimiendo Recibo de Pago","Mensaje",1);
+        }else{
+            JOptionPane.showMessageDialog(null, "Enviando Recibo de Pago al Correo","Mensaje",1);
+        }
+        
+        //Regresamos al Modulo Main
+        
+        ModuloMain mm = new ModuloMain();
+
+        mm.setSize(new Dimension(1300, 800));
+        mm.setLocation(0, 0);
+        Main.Fondo.removeAll();
+        Main.Fondo.add(mm, BorderLayout.CENTER);
+        Main.Fondo.revalidate();
+        Main.Fondo.repaint();
     }
     
     

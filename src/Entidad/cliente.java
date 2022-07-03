@@ -11,7 +11,7 @@ package Entidad;
  */
 public class cliente {
     private int ClienID;
-    private char ClienDNI;
+    private String ClienDNI;
     private String ClienNom;
     private String ClienApe;
     private String ClienDirec;
@@ -19,7 +19,7 @@ public class cliente {
     public cliente() {
     }
 
-    public cliente(int ClienID, char ClienDNI, String ClienNom, String ClienApe, String ClienDirec) {
+    public cliente(int ClienID, String ClienDNI, String ClienNom, String ClienApe, String ClienDirec) {
         this.ClienID = ClienID;
         this.ClienDNI = ClienDNI;
         this.ClienNom = ClienNom;
@@ -35,11 +35,11 @@ public class cliente {
         this.ClienID = ClienID;
     }
 
-    public char getClienDNI() {
+    public String getClienDNI() {
         return ClienDNI;
     }
 
-    public void setClienDNI(char ClienDNI) {
+    public void setClienDNI(String ClienDNI) {
         this.ClienDNI = ClienDNI;
     }
 

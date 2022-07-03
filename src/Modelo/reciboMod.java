@@ -57,6 +57,7 @@ public class reciboMod {
         return this.reciNum;
     }
     
+    //Obtener el ultimo numero del recibo generado
     public String maxReciNum(){
         String serie = "";
         String sql = "SELECT max(ReciNum) FROM recibo";
@@ -69,15 +70,16 @@ public class reciboMod {
                 serie = rs.getString(1);
             }
         } catch (Exception e) {
-            System.out.println("error en obtener el ultimo numero de recibo" + e);
+            System.out.println("error en obtener el ultimo numero de recibo " + e);
         }
         
         return serie;
     }
     
+    //Obtener el ultimo ID del recibo generado
     public int maxReciID(){
         int serie = 0;
-        String sql = "SELECT max(ReciID) FROM recibo";
+        String sql = "SELECT max(ReciID) FROM recibo ";
 
         try {
             acce = con.conectardb();
@@ -87,9 +89,33 @@ public class reciboMod {
                 serie = rs.getInt(1);
             }
         } catch (Exception e) {
-            System.out.println("error en obtener el maximo ID recibo" + e);
+            System.out.println("error en obtener el maximo ID recibo " + e);
         }
 
         return serie;
     }
+    
+    //Ingresar datos del recibo
+    public int addRecibo(Object[] ob) {
+        int r = 0;
+        String sql = "INSERT INTO recibo(ReciNum,ReciFecha,ReciEstd,ReciMonto,ClienID) VALUES(?,?,?,?,?)";
+        
+        try {
+            acce = con.conectardb();
+            ps = acce.prepareStatement(sql);
+            ps.setObject(1, ob[0]);
+            ps.setObject(2, ob[1]);
+            ps.setObject(3, ob[2]);
+            ps.setObject(4, ob[3]);
+            ps.setObject(5, ob[4]);
+            r = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error al ingresar datos del recibo " + e);
+        }
+        
+        return r;
+    }
+    
+    
+    
 }
