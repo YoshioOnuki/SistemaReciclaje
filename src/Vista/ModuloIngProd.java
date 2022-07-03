@@ -43,6 +43,8 @@ public class ModuloIngProd extends javax.swing.JPanel {
         mostrarProductos();
         tablaProd.setRowHeight(25);//Damos un tamaño predeterminado a la tabla
         
+//        Vista2.Loading load = new Loading();
+//        load.setVisible(true);
     }
     
     //Limpiamos los campos del producto

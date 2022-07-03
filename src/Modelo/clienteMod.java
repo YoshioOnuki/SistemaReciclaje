@@ -122,7 +122,7 @@ public class clienteMod {
     }
     
     //Obtenemos los datos del cliente por el ID
-    public Entidad.cliente datosCliente(int cliID){
+    public Entidad.cliente datosClienteID(int cliID){
         Entidad.cliente eCli = new cliente();
         
         String sql = "SELECT * FROM cliente WHERE ClienID=?";
@@ -145,5 +145,52 @@ public class clienteMod {
         
         return eCli;
     }
+    
+    //Obtenemos los datos del cliente por el DNI
+    public Entidad.cliente datosClienteDNI(String dni){
+        Entidad.cliente eCli = new cliente();
+        
+        String sql = "SELECT * FROM cliente WHERE ClienDNI=?";
+        
+        try {
+            acce = con.conectardb();
+            ps = acce.prepareStatement(sql);
+            ps.setString(1, dni);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                eCli.setClienID(rs.getInt(1));
+                eCli.setClienDNI(rs.getString(2));
+                eCli.setClienNom(rs.getString(3));
+                eCli.setClienApe(rs.getString(4));
+                eCli.setClienDirec(rs.getString(5));
+            }
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos del cliente por DNI:  " + e);
+        }
+        
+        return eCli;
+    }
 
+    //Obtenemos el EMAIL del cliente metiante su DNI
+    public String datoCorreoDNI(String dni){
+        Entidad.cliente eCli = new cliente();
+        String r = "";
+        
+        String sql = "SELECT c.CorEmail FROM correo c INNER JOIN cliente cl ON c.ClienID=cl.ClienID WHERE cl.ClienDNI=?";
+        
+        try {
+            acce = con.conectardb();
+            ps = acce.prepareStatement(sql);
+            ps.setString(1, dni);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                r = rs.getString(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al obtener datos del cliente por DNI:  " + e);
+        }
+        
+        return r;
+    }
+    
 }
