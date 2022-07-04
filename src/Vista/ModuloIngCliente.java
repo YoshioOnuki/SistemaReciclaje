@@ -9,16 +9,33 @@ import Entidad.cliente;
 import Modelo.clienteMod;
 import Modelo.detaReciMod;
 import Modelo.reciboMod;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -47,6 +64,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         
     }
     
+    
     //Cargamos la tabla de productos de la interfaz anterior
     void cargarTabProd(){
         tModel2 = (DefaultTableModel) tablaProd.getModel();
@@ -62,6 +80,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         txtTotal.setText("S/."+String.format("%.2f",total));
     }
 
+    
     //Generamos el Numero del Recibo
     String generarReciNum(){
         String rNum = "";
@@ -115,6 +134,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
             
     }
     
+    
     void buscarCliente(){
         int temp = 0;
         if(txtDNI.getText().equals("")){
@@ -144,6 +164,8 @@ public class ModuloIngCliente extends javax.swing.JPanel {
             
         }
     }
+    
+    
     //Ingresamos todos los datos del cliente, Recibo, Detalle de recibo, Email.
     void ActIngresar(){
         //Ingresar datos del cliente
@@ -241,8 +263,15 @@ public class ModuloIngCliente extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Enviando Recibo de Pago al Correo","Mensaje",1);
         }
         
-        //Regresamos al Modulo Main
+        try {
+            pdf(RecNum, ReciF, eClien.getClienDNI(), eClien.getClienNom(), eClien.getClienApe(), eClien.getClienDirec(), total);
+        } catch (Exception e) {
+        }
         
+        //abre el pdf generado
+        abrirPDF(RecNum);
+        
+        //Regresamos al Modulo Main
         ModuloMain mm = new ModuloMain();
 
         mm.setSize(new Dimension(1300, 800));
@@ -253,7 +282,144 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         Main.Fondo.repaint();
     }
     
+    //metodo que me abre el pdf generado
+    public void abrirPDF(String codigo){
+        try {
+            File path = new File(codigo + ".pdf");
+            Desktop.getDesktop().open(path);
+        } catch (Exception e) {
+            System.out.println("Error al abrir el pdf " + e);
+        }
+    }
     
+    
+    //metodo que me crea un pdf del recibo
+    public void pdf(String codigo, String fecha, String dni, String nombre, String ape, String dir, double total) throws FileNotFoundException, DocumentException {
+        FileOutputStream archivo = new FileOutputStream(codigo+".pdf");
+        Document documento = new Document();
+        PdfWriter.getInstance(documento, archivo);
+        documento.open();
+                
+        try {
+            Font negrita1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD,BaseColor.BLACK);
+            Font negrita2 = new Font(Font.FontFamily.HELVETICA,22,Font.BOLD,BaseColor.BLACK);
+            Font negrita3 = new Font(Font.FontFamily.HELVETICA,12,Font.BOLD,BaseColor.BLACK);
+            Font negrita4 = new Font(Font.FontFamily.HELVETICA,12,Font.BOLD,BaseColor.WHITE);
+            
+            
+            PdfPTable encabezado = new PdfPTable(1);
+            encabezado.setWidthPercentage(100);
+            encabezado.getDefaultCell().setBorder(0);
+            float[] clumnasEncabezado = new float[]{100f};
+            encabezado.setWidths(clumnasEncabezado);
+            encabezado.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            
+//            Image imagen = Image.getInstance("C://Users/yoshi/OneDrive/Documentos/NetBeansProjects/SistemaReciclaje/src/Imagen");
+//            documento.add(imagen);
+            
+            Paragraph parrafo = new Paragraph("Recliando Juntos",negrita2);
+            parrafo.setAlignment(1);
+            documento.add(parrafo);
+            Paragraph parrafo2 = new Paragraph("Si amas la tierra, recicla y conserva",negrita1);
+            parrafo2.setAlignment(1);
+            documento.add(parrafo2);
+            
+            Paragraph titulo3 = new Paragraph("\n                                                                                   R.U.C. N° 1234567890",negrita1);
+            titulo3.setAlignment(1);
+            documento.add(titulo3);
+            Paragraph titulo = new Paragraph("                                                                                   Boleta de Pago Electrónico",negrita1);
+            titulo.setAlignment(1);
+            documento.add(titulo);
+            Paragraph titulo2 = new Paragraph("                                                                                   " + codigo, negrita1);
+            titulo2.setAlignment(1);
+            documento.add(titulo2);
+            
+            //datos de la empresa
+            documento.add(new Paragraph("\n"));
+            PdfPTable tablaEmpresa = new PdfPTable(2);
+            tablaEmpresa.setWidthPercentage(100);
+            tablaEmpresa.getDefaultCell().setBorder(0);
+            float[] clumnasE = new float[]{55f,100f};
+            tablaEmpresa.setWidths(clumnasE);
+            tablaEmpresa.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell pEmp1 = new  PdfPCell(new Phrase(" ",negrita4));
+            PdfPCell pEmp2 = new  PdfPCell(new Phrase("Reciclando Juntos E.I.R.L",negrita4));
+            pEmp1.setBorder(0);
+            pEmp2.setBorder(0);
+            pEmp1.setBackgroundColor(BaseColor.GRAY);
+            pEmp2.setBackgroundColor(BaseColor.GRAY);
+            tablaEmpresa.addCell(pEmp1);
+            tablaEmpresa.addCell(pEmp2);
+            documento.add(tablaEmpresa);
+            
+            documento.add(new Paragraph("Fecha:           " + fecha + "                     Empresa:           Reciclando Juntos E.I.R.L"));
+            documento.add(new Paragraph("Celular:         924667644                                     Direccion:         Jr.Arica #190"));
+            
+            //datos del cliente
+            documento.add(new Paragraph("\n______________________________________________________________________________"));
+            documento.add(new Paragraph("Cliente:          " + nombre + " " + ape));
+            documento.add(new Paragraph("DNI:               " + dni + "                                      Direccion:         " + dir));
+            
+            Paragraph titulo5 = new Paragraph("\nDetalles",negrita1);
+            titulo5.setAlignment(1);
+            documento.add(titulo5);
+            
+            //prodcutos
+            documento.add(new Paragraph("\n"));
+            PdfPTable tablaP = new PdfPTable(4);
+            tablaP.setWidthPercentage(100);
+            tablaP.getDefaultCell().setBorder(0);
+            float[] clumnasP = new float[]{15f, 60f, 20f, 20f};
+            tablaP.setWidths(clumnasP);
+            tablaP.setHorizontalAlignment(Element.ALIGN_LEFT);
+            PdfPCell p1 = new  PdfPCell(new Phrase("N° ",negrita4));
+            PdfPCell p2 = new  PdfPCell(new Phrase("Descripción",negrita4));
+            PdfPCell p3 = new  PdfPCell(new Phrase("Cantidad",negrita4));
+            PdfPCell p4 = new  PdfPCell(new Phrase("Importe",negrita4));
+            p1.setBorder(0);
+            p2.setBorder(0);
+            p3.setBorder(0);
+            p4.setBorder(0);
+            p1.setBackgroundColor(BaseColor.DARK_GRAY);
+            p2.setBackgroundColor(BaseColor.DARK_GRAY);
+            p3.setBackgroundColor(BaseColor.DARK_GRAY);
+            p4.setBackgroundColor(BaseColor.DARK_GRAY);
+            tablaP.addCell(p1);
+            tablaP.addCell(p2);
+            tablaP.addCell(p3);
+            tablaP.addCell(p4);
+            for(int i=0;i<tablaProd.getRowCount();i++){
+                String des = tablaProd.getValueAt(i, 1).toString();
+                int cant = Integer.parseInt(tablaProd.getValueAt(i, 2).toString());
+                double importe = Double.parseDouble(tablaProd.getValueAt(i, 3).toString());
+                int nroo= i+1;
+                String nro = "" + nroo;
+                String cantidad = "" + cant;
+                String subtotal = "" + String.format("%.2f", importe);
+                
+                tablaP.addCell(nro);
+                tablaP.addCell(des);
+                tablaP.addCell(cantidad);
+                tablaP.addCell(subtotal);
+            }
+            
+            documento.add(tablaP);
+            
+            //pago
+            documento.add(new Paragraph("______________________________________________________________________________"));
+            documento.add(new Paragraph("                                                                                                       Pago:            S/. " + String.format("%.2f", total)));
+            
+            Paragraph finall = new Paragraph("\n\n\nGracias por su preferencia.", negrita3);
+            finall.setAlignment(Element.ALIGN_CENTER);
+            documento.add(finall);
+            
+        } catch (BadElementException ex) {
+            System.out.println("" + ex);
+        }
+        documento.close();
+        
+    }
     
     
     
