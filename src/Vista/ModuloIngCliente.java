@@ -15,7 +15,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -325,6 +324,8 @@ public class ModuloIngCliente extends javax.swing.JPanel {
             parrafo2.setAlignment(1);
             documento.add(parrafo2);
             
+            Paragraph linea1 = new Paragraph("\n                                                                                    ________________________",negrita1);
+            documento.add(linea1);
             Paragraph titulo3 = new Paragraph("\n                                                                                   R.U.C. N° 1234567890",negrita1);
             titulo3.setAlignment(1);
             documento.add(titulo3);
@@ -334,9 +335,11 @@ public class ModuloIngCliente extends javax.swing.JPanel {
             Paragraph titulo2 = new Paragraph("                                                                                   " + codigo, negrita1);
             titulo2.setAlignment(1);
             documento.add(titulo2);
+            Paragraph linea2 = new Paragraph("                                                                                    ________________________",negrita1);
+            documento.add(linea2);
             
             //datos de la empresa
-            documento.add(new Paragraph("\n"));
+            documento.add(new Paragraph("\n\n"));
             PdfPTable tablaEmpresa = new PdfPTable(2);
             tablaEmpresa.setWidthPercentage(100);
             tablaEmpresa.getDefaultCell().setBorder(0);

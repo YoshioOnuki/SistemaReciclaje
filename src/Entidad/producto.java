@@ -14,27 +14,17 @@ public class producto {
     private String ProdDesc;
     private double ProdPrec;
     private int ProdEstd;
-    private int ProdLimCont;
     
     public producto() {
     }
 
-    public producto(int ProdID, String ProdDesc, double ProdPrec, int ProdEstd, int ProdLimCont) {
+    public producto(int ProdID, String ProdDesc, double ProdPrec, int ProdEstd) {
         this.ProdID = ProdID;
         this.ProdDesc = ProdDesc;
         this.ProdPrec = ProdPrec;
         this.ProdEstd = ProdEstd;
-        this.ProdLimCont = ProdLimCont;
     }
 
-    
-    public int getProdLimCont() {
-        return ProdLimCont;
-    }
-
-    public void setProdLimCont(int ProdLimCont) {
-        this.ProdLimCont = ProdLimCont;
-    }
 
     public int getProdID() {
         return ProdID;

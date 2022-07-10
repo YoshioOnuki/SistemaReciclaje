@@ -40,7 +40,6 @@ public class productoMod {
                 entP.setProdDesc(rs.getString(2));
                 entP.setProdPrec(rs.getDouble(3));
                 entP.setProdEstd(rs.getInt(4));
-                entP.setProdLimCont(rs.getInt(5));
             }
             
         } catch (Exception e) {
