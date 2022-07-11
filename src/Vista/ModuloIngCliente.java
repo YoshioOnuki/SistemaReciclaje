@@ -6,8 +6,10 @@
 package Vista;
 
 import Entidad.cliente;
+import Entidad.maquina;
 import Modelo.clienteMod;
 import Modelo.detaReciMod;
+import Modelo.maquinaMod;
 import Modelo.reciboMod;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
@@ -58,7 +60,9 @@ public class ModuloIngCliente extends javax.swing.JPanel {
     Modelo.reciboMod recMod = new reciboMod();
     Modelo.clienteMod cliMod = new clienteMod();
     Modelo.detaReciMod detaReciMod = new detaReciMod();
+    Modelo.maquinaMod maqMod = new maquinaMod();
     Entidad.cliente eClien = new cliente();
+    Entidad.maquina maq = new maquina();
     
     
     DefaultTableModel tModel2;
@@ -93,7 +97,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
     }
     
     
-    //Generamos el Numero del Recibo
+    //Generamos el Numero del correoRecibo
     String generarReciNum(){
         String rNum = "";
         String num = recMod.maxReciNum();
@@ -179,8 +183,20 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         }
     }
     
+    //Aumentamos el contador de hojas de la maquina
+    void aumHojas(){
+        maq = maqMod.validarMaquina();
+        maq.aumentarHoja();
+        
+         
+        Object ob = new Object();
+        ob = maq.getMaquiHoja();
+        
+        maqMod.updateHoja(ob);
+    }
     
-    //Ingresamos todos los datos del cliente, Recibo, Detalle de recibo, Email.
+    
+    //Ingresamos todos los datos del cliente, correoRecibo, Detalle de recibo, Email.
     void ActIngresar() throws javax.mail.MessagingException{
         //Ingresar datos del cliente
         String dni= txtDNI.getText();
@@ -237,7 +253,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         
         int r2 = recMod.addRecibo(obRec);
         
-        //Ingresar Detalle del Recibo
+        //Ingresar Detalle del correoRecibo
         for(int i=0; i<tablaProd.getRowCount(); i++){
             int ProdID = Integer.parseInt(tablaProd.getValueAt(i, 0).toString());
             int RecID = recMod.maxReciID();
@@ -256,34 +272,49 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         
         eClien = cliMod.datosClienteID(ClienID);
         
-        //Creamos el Recibo en PDF
-        try {
-            pdf(RecNum, ReciF, eClien.getClienDNI(), eClien.getClienNom(), eClien.getClienApe(), eClien.getClienDirec(), total);
-        } catch (Exception e) {
-        }
-        
         if(rbtImprimir.isSelected()){
-            ImageIcon icon = new ImageIcon("src/Imagen/IconDocConf.png");
-            JOptionPane.showMessageDialog(null, "Imprimiendo Recibo de Pago", "¡Imprimiendo!",JOptionPane.WARNING_MESSAGE, icon);
-            
-            //Abrimos el recibo
-            abrirPDF(RecNum);
-            
-            //Regresamos al Modulo Main
-            ModuloMain mm = new ModuloMain();
+            maq = maqMod.validarMaquina();
+            if(maq.getMaquiHoja() < maq.getMaquiLimHoja()){
+                //Creamos el Recibo en PDF
+                try {
+                    pdf(RecNum, ReciF, eClien.getClienDNI(), eClien.getClienNom(), eClien.getClienApe(), eClien.getClienDirec(), total);
+                } catch (Exception e) {
+                }
+                
+                ImageIcon icon = new ImageIcon("src/Imagen/IconDocConf.png");
+                JOptionPane.showMessageDialog(null, "Imprimiendo Recibo de Pago", "¡Imprimiendo!",JOptionPane.WARNING_MESSAGE, icon);
 
-            mm.setSize(new Dimension(1300, 800));
-            mm.setLocation(0, 0);
-            Main.Fondo.removeAll();
-            Main.Fondo.add(mm, BorderLayout.CENTER);
-            Main.Fondo.revalidate();
-            Main.Fondo.repaint();
+                //Abrimos el recibo
+                abrirPDF(RecNum);
+
+                //Aumnetamos el contador de la hoja
+                aumHojas();
+
+                //Regresamos al Modulo Main
+                ModuloMain mm = new ModuloMain();
+
+                mm.setSize(new Dimension(1300, 800));
+                mm.setLocation(0, 0);
+                Main.Fondo.removeAll();
+                Main.Fondo.add(mm, BorderLayout.CENTER);
+                Main.Fondo.revalidate();
+                Main.Fondo.repaint();
+            }else{
+                ImageIcon icon = new ImageIcon("src/Imagen/IconDocWar.png");
+                JOptionPane.showMessageDialog(null, "No hay hoja disponible para imprimir", "¡Error al Imprimir!",JOptionPane.WARNING_MESSAGE, icon);
+            }
         }else{
+            //Creamos el Recibo en PDF
+            try {
+                pdf(RecNum, ReciF, eClien.getClienDNI(), eClien.getClienNom(), eClien.getClienApe(), eClien.getClienDirec(), total);
+            } catch (Exception e) {
+            }
+            
             ImageIcon icon = new ImageIcon("src/Imagen/IconEmailConf.png");
             JOptionPane.showMessageDialog(null, "Enviando Recibo de Pago al Correo", "¡Operación Exitosa!",JOptionPane.WARNING_MESSAGE, icon);
             
             //Enviamos el recibo al correo
-            Recibo(RecNum);
+            correoRecibo(RecNum);
             
             //Regresamos al Modulo Main
             ModuloMain mm = new ModuloMain();
@@ -439,7 +470,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
     }
     
     //ENVIAR SU RECIBO A SU CORREO
-    void Recibo(String NumRec) throws AddressException, javax.mail.MessagingException{
+    void correoRecibo(String NumRec) throws AddressException, javax.mail.MessagingException{
         String email = "reciclando.juntos.peru@gmail.com";
         String pass = "ndmvcejuqopygyix";
         String emailCliente = txtEmail.getText();
@@ -477,7 +508,6 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         t.sendMessage(mensaje, mensaje.getAllRecipients());
         t.close();
     }
-    
     
     
     

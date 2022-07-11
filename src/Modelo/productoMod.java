@@ -25,6 +25,7 @@ public class productoMod {
     DB.ConDB con = new ConDB();
     Connection acceso;
     
+    //Validamos el producto, devolviendo todos los atributos por medio de la entidad
     public Entidad.producto validarProducto(int idP){
         Entidad.producto entP = new producto();
         
@@ -49,6 +50,7 @@ public class productoMod {
         return entP;
     }
     
+    //Obtenemos la cantidad de registros de los productos
     public int SacarContProd(){
         int cont = 0;
         

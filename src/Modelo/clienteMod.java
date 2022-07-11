@@ -176,7 +176,7 @@ public class clienteMod {
         Entidad.cliente eCli = new cliente();
         String r = "";
         
-        String sql = "SELECT c.CorEmail FROM correo c INNER JOIN cliente cl ON c.ClienID=cl.ClienID WHERE cl.ClienDNI=?";
+        String sql = "SELECT c.CorEmail FROM correo c INNER JOIN cliente cl ON c.ClienID=cl.ClienID WHERE cl.ClienDNI=? AND c.CorID=1";
         
         try {
             acce = con.conectardb();

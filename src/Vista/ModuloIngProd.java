@@ -44,7 +44,6 @@ public class ModuloIngProd extends javax.swing.JPanel {
         limpiarControles();
         mostrarProductos();
         tablaProd.setRowHeight(25);//Damos un tamaño predeterminado a la tabla
-        
     }
     
     //Limpiamos los campos del producto

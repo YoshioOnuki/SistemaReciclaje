@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Entidad.maquina;
 import Modelo.maquinaMod;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,9 +20,11 @@ import javax.swing.JOptionPane;
 public class ModuloMain extends javax.swing.JPanel {
 
     Modelo.maquinaMod maqMod = new maquinaMod();
+    Entidad.maquina maq = new maquina();
     
     public ModuloMain() {
         initComponents();
+        ModuloIngProd.total = 0;
     }
 
     /**
@@ -237,6 +240,7 @@ public class ModuloMain extends javax.swing.JPanel {
 
             mPro.vector2.setVisible(false);
             mPro.vector3.setVisible(false);
+            
         }else{
             ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
             JOptionPane.showMessageDialog(null, " \nProducto atascado, maquina inutilizable..."
