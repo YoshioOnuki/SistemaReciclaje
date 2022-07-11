@@ -11,9 +11,9 @@ package Entidad;
  */
 public class maquina {
     
-    public int MaquiID;
-    public int MaquiHoja;
-    public int MaquiAtasco;
+    private int MaquiID;
+    private int MaquiHoja;
+    private int MaquiAtasco;
 
     public maquina() {
     }

@@ -267,7 +267,7 @@ public class ModuloOpeDash extends javax.swing.JPanel {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        atras.setBackground(new java.awt.Color(224, 27, 18));
+        atras.setBackground(new java.awt.Color(209, 20, 54));
         atras.setMaximumSize(new java.awt.Dimension(30, 30));
         atras.setMinimumSize(new java.awt.Dimension(30, 30));
         atras.addMouseListener(new java.awt.event.MouseAdapter() {

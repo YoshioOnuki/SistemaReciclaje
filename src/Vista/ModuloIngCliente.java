@@ -30,8 +30,21 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -78,7 +91,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         total = ModuloIngProd.total;
         txtTotal.setText("S/."+String.format("%.2f",total));
     }
-
+    
     
     //Generamos el Numero del Recibo
     String generarReciNum(){
@@ -105,17 +118,20 @@ public class ModuloIngCliente extends javax.swing.JPanel {
     
     
     //Validamos el Boton Siguiente...
-    void ingresarSig() throws MessagingException{
+    void ingresarSig() throws MessagingException, javax.mail.MessagingException{
         if(txtDNI.getText().equals("") || txtNombre.getText().equals("") || txtApe.getText().equals("") || txtDirec.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Campos de textos obligatorios sin rellenar");
+            ImageIcon icon1 = new ImageIcon("src/Imagen/IconTexto.png");
+            JOptionPane.showMessageDialog(null, "Campos de textos obligatorios sin rellenar", "¡Espere!",JOptionPane.WARNING_MESSAGE, icon1);
             txtDNI.requestFocus();
         }else{
             if(!rbtCorreo.isSelected() && !rbtImprimir.isSelected()){
-                JOptionPane.showMessageDialog(null, "Seleccione el tipo de Recibo\n        (Imprimir / Correo)");
+                ImageIcon icon2 = new ImageIcon("src/Imagen/IconBurbujaWar.png");
+                JOptionPane.showMessageDialog(null, "Seleccione el tipo de Recibo\n        (Imprimir / Correo)", "¡Espere!",JOptionPane.WARNING_MESSAGE, icon2);
             }else{
                 if(rbtCorreo.isSelected() == true){
                     if(txtEmail.getText().equals("")){
-                            JOptionPane.showMessageDialog(null, "Campo de Email sin rellenar");
+                        ImageIcon icon = new ImageIcon("src/Imagen/IconEmailWar.png");
+                        JOptionPane.showMessageDialog(null, "Campo de Email sin rellenar", "¡Espere!",JOptionPane.WARNING_MESSAGE, icon);
                         }else{
                             this.vector1.setVisible(false);
                             this.vector2.setVisible(false);
@@ -130,7 +146,6 @@ public class ModuloIngCliente extends javax.swing.JPanel {
                     }
                 }
             }
-            
     }
     
     
@@ -166,7 +181,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
     
     
     //Ingresamos todos los datos del cliente, Recibo, Detalle de recibo, Email.
-    void ActIngresar(){
+    void ActIngresar() throws javax.mail.MessagingException{
         //Ingresar datos del cliente
         String dni= txtDNI.getText();
         String nom = txtNombre.getText();
@@ -185,11 +200,6 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         
         if(cliMod.idClienteDNI(dni)==0){
             int r1 = cliMod.addCliente(ob);
-            
-//            if(r1>0){
-//                JOptionPane.showMessageDialog(null, "Los datos del cliente se ingresaron correctamente");
-//            }
-            
             ClienID = cliMod.idCliente();
         }else{
             ClienID = cliMod.idClienteDNI(dni);
@@ -206,10 +216,6 @@ public class ModuloIngCliente extends javax.swing.JPanel {
                 Object obCor = new Object();
                 obCor = txtEmail.getText();
                 c1 = cliMod.addCorreo(obCor, ClienID);
-
-//                if(c1>0){
-//                    JOptionPane.showMessageDialog(null, "El correo del cliente se ingresó correctamente");
-//                }
             }
             
         }
@@ -231,10 +237,6 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         
         int r2 = recMod.addRecibo(obRec);
         
-//        if(r2>0){
-//            JOptionPane.showMessageDialog(null, "Datos del recibo ingresados correctamente");
-//        }
-        
         //Ingresar Detalle del Recibo
         for(int i=0; i<tablaProd.getRowCount(); i++){
             int ProdID = Integer.parseInt(tablaProd.getValueAt(i, 0).toString());
@@ -252,33 +254,48 @@ public class ModuloIngCliente extends javax.swing.JPanel {
             detaReciMod.addDetaRecibo(obDet);
         }
         
-        JOptionPane.showMessageDialog(null, "Datos ingresados correctamente");
-        
         eClien = cliMod.datosClienteID(ClienID);
         
-        if(rbtImprimir.isSelected()){
-            JOptionPane.showMessageDialog(null, "Imprimiendo Recibo de Pago","Mensaje",1);
-        }else{
-            JOptionPane.showMessageDialog(null, "Enviando Recibo de Pago al Correo","Mensaje",1);
-        }
-        
+        //Creamos el Recibo en PDF
         try {
             pdf(RecNum, ReciF, eClien.getClienDNI(), eClien.getClienNom(), eClien.getClienApe(), eClien.getClienDirec(), total);
         } catch (Exception e) {
         }
         
-        //abre el pdf generado
-        abrirPDF(RecNum);
-        
-        //Regresamos al Modulo Main
-        ModuloMain mm = new ModuloMain();
+        if(rbtImprimir.isSelected()){
+            ImageIcon icon = new ImageIcon("src/Imagen/IconDocConf.png");
+            JOptionPane.showMessageDialog(null, "Imprimiendo Recibo de Pago", "¡Imprimiendo!",JOptionPane.WARNING_MESSAGE, icon);
+            
+            //Abrimos el recibo
+            abrirPDF(RecNum);
+            
+            //Regresamos al Modulo Main
+            ModuloMain mm = new ModuloMain();
 
-        mm.setSize(new Dimension(1300, 800));
-        mm.setLocation(0, 0);
-        Main.Fondo.removeAll();
-        Main.Fondo.add(mm, BorderLayout.CENTER);
-        Main.Fondo.revalidate();
-        Main.Fondo.repaint();
+            mm.setSize(new Dimension(1300, 800));
+            mm.setLocation(0, 0);
+            Main.Fondo.removeAll();
+            Main.Fondo.add(mm, BorderLayout.CENTER);
+            Main.Fondo.revalidate();
+            Main.Fondo.repaint();
+        }else{
+            ImageIcon icon = new ImageIcon("src/Imagen/IconEmailConf.png");
+            JOptionPane.showMessageDialog(null, "Enviando Recibo de Pago al Correo", "¡Operación Exitosa!",JOptionPane.WARNING_MESSAGE, icon);
+            
+            //Enviamos el recibo al correo
+            Recibo(RecNum);
+            
+            //Regresamos al Modulo Main
+            ModuloMain mm = new ModuloMain();
+
+            mm.setSize(new Dimension(1300, 800));
+            mm.setLocation(0, 0);
+            Main.Fondo.removeAll();
+            Main.Fondo.add(mm, BorderLayout.CENTER);
+            Main.Fondo.revalidate();
+            Main.Fondo.repaint();
+        }
+        
     }
     
     //metodo que me abre el pdf generado
@@ -314,10 +331,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
             encabezado.setHorizontalAlignment(Element.ALIGN_CENTER);
             
             
-//            Image imagen = Image.getInstance("C://Users/yoshi/OneDrive/Documentos/NetBeansProjects/SistemaReciclaje/src/Imagen");
-//            documento.add(imagen);
-            
-            Paragraph parrafo = new Paragraph("Recliando Juntos",negrita2);
+            Paragraph parrafo = new Paragraph("Reciclando Juntos",negrita2);
             parrafo.setAlignment(1);
             documento.add(parrafo);
             Paragraph parrafo2 = new Paragraph("Si amas la tierra, recicla y conserva",negrita1);
@@ -422,6 +436,46 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         }
         documento.close();
         
+    }
+    
+    //ENVIAR SU RECIBO A SU CORREO
+    void Recibo(String NumRec) throws AddressException, javax.mail.MessagingException{
+        String email = "reciclando.juntos.peru@gmail.com";
+        String pass = "ndmvcejuqopygyix";
+        String emailCliente = txtEmail.getText();
+        
+        Properties pro = new Properties();
+        pro.put("mail.smtp.host","smtp.gmail.com");
+        pro.setProperty("mail.smtp.starttls.enable", "true");
+        pro.put("mal.smtp.ssl.trust", "smtp.gmail.com");
+        pro.setProperty("mail.smtp.port", "587");
+        pro.setProperty("mail.smtp.user", email);
+        pro.setProperty("mail.smtp.auth", "true");
+        
+        Session sess = Session.getDefaultInstance(pro);
+        
+        BodyPart texMens = new MimeBodyPart();
+        texMens.setText("Saludos estimado."
+                + "\nGracias por reciclar con nosotros, te enviamos el recibo de la operación que realizaste."
+                + "\n\nAtentamente.\nReciclando Juntos E.I.R.L.");
+        BodyPart adjunto = new MimeBodyPart();
+        adjunto.setDataHandler(new DataHandler(new FileDataSource("C:\\Users\\yoshi\\OneDrive\\Documentos\\NetBeansProjects\\SistemaReciclaje\\"+NumRec+".pdf")));
+        adjunto.setFileName(NumRec + ".pdf");
+        
+        MimeMultipart m = new MimeMultipart();
+        m.addBodyPart(texMens);
+        m.addBodyPart(adjunto);
+        
+        MimeMessage mensaje = new MimeMessage(sess);
+        mensaje.setFrom(new InternetAddress(email));
+        mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(emailCliente));
+        mensaje.setSubject("Recibo - Reciclando Juntos");
+        mensaje.setContent(m);
+        
+        Transport t = sess.getTransport("smtp");
+        t.connect(email,pass);
+        t.sendMessage(mensaje, mensaje.getAllRecipients());
+        t.close();
     }
     
     
@@ -564,7 +618,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        atras.setBackground(new java.awt.Color(224, 27, 18));
+        atras.setBackground(new java.awt.Color(209, 20, 54));
         atras.setMaximumSize(new java.awt.Dimension(30, 30));
         atras.setMinimumSize(new java.awt.Dimension(30, 30));
         atras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -873,17 +927,20 @@ public class ModuloIngCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
-        ModuloIngProd modIngPro = new ModuloIngProd();
-
-        modIngPro.setSize(new Dimension(1300, 800));
-        modIngPro.setLocation(0,0);
-        Main.Fondo.removeAll();
-        Main.Fondo.add(modIngPro, BorderLayout.CENTER);
-        Main.Fondo.revalidate();
-        Main.Fondo.repaint();
+        ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
+        String [] arregloOpc = {"Regresar", "Seguir Reciclando"};
+        int op = JOptionPane.showOptionDialog(null, " \n¿Seguro que deseas regresar al menú principal?\n        Perderás todos los datos ingresados.\n ", "¡Espera!", 0, JOptionPane.QUESTION_MESSAGE, ico, arregloOpc, "Seguir Reciclando");
         
-        modIngPro.vector2.setVisible(false);
-        modIngPro.vector3.setVisible(false);
+        if(op == 0){
+            ModuloMain mm = new ModuloMain();
+
+            mm.setSize(new Dimension(1300, 800));
+            mm.setLocation(0,0);
+            Main.Fondo.removeAll();
+            Main.Fondo.add(mm, BorderLayout.CENTER);
+            Main.Fondo.revalidate();
+            Main.Fondo.repaint();
+        }
     }//GEN-LAST:event_atrasMouseClicked
 
     private void atrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseEntered
@@ -898,6 +955,8 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         try {
             ingresarSig();
         } catch (MessagingException ex) {
+            Logger.getLogger(ModuloIngCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (javax.mail.MessagingException ex) {
             Logger.getLogger(ModuloIngCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnReciboMouseClicked

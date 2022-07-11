@@ -1,7 +1,9 @@
 
 package Vista;
 
+import Entidad.maquina;
 import Entidad.producto;
+import Modelo.maquinaMod;
 import Modelo.productoMod;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,7 +25,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
     
     Modelo.productoMod modpro = new productoMod();
     Entidad.producto epro = new producto();
-    
+    Modelo.maquinaMod maqMod = new maquinaMod();
         
     int cantRegs;
     int regActual = 0;
@@ -110,77 +112,107 @@ public class ModuloIngProd extends javax.swing.JPanel {
         } 
     }
     
+    //Validamos el atasco del producto...
+    void validarAtasco(){
+        int inicio = 1, fin = 100, estd = 2, a = 1;
+        int at = (int) (Math.random() * (inicio - fin + 1) + fin);
+        
+        if(at >= inicio && at <= 5){
+            Object ob = new Object();
+            ob = estd;
+            a = maqMod.updateAtasco(ob);
+        }
+    }
+    
     //Agrega el producto introducido en la tabla para visualizar el detalle
     void agregarProd(){
         
         if(txtNombre.getText() == "Seleccione" || txtPrecio.getText() == "Seleccione"){
-            JOptionPane.showMessageDialog(null, "No hay productos en la máquina");
+            ImageIcon icon1 = new ImageIcon("src/Imagen/IconTodoRec.png");
+            JOptionPane.showMessageDialog(null, "No hay productos para ingresar en la máquina", "¡Maquina Vacía!",JOptionPane.WARNING_MESSAGE, icon1);
         }else{
             if(txtNombre.getText() == "No Válido" || txtPrecio.getText() == "No Válido"){
-                JOptionPane.showMessageDialog(null, "Producto introducido No Válido");
+                ImageIcon icon2 = new ImageIcon("src/Imagen/IconNulo.png");
+                
+                JOptionPane.showMessageDialog(null, "Producto introducido No Válido","¡No Válido!", JOptionPane.WARNING_MESSAGE, icon2);
             }else{
-                String nombre = txtNombre.getText();
-                double precio = Double.parseDouble(txtPrecio.getText());
-                int valida = 1, posProd = 0;
-                double importe;
-                
-                mpro = (DefaultTableModel) tablaProd.getModel();
-                
-                for(int i=0; i<tablaProd.getRowCount(); i++){
-                    if(regActual == Integer.parseInt(tablaProd.getValueAt(i, 0).toString())){
-                        valida = 2;
-                        posProd = i;
-                        break;
+                if(maqMod.atascoMaqui() == 1){
+                    validarAtasco();
+                    if(maqMod.atascoMaqui() == 2){
+                        ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
+                        JOptionPane.showMessageDialog(null, " \nProducto atascado, maquina inutilizable..."
+                            + "\nLlamar al Operador: 924667644"
+                            + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Error en la Maquina!", JOptionPane.WARNING_MESSAGE, ico);
+                    }else{
+                        String nombre = txtNombre.getText();
+                        double precio = Double.parseDouble(txtPrecio.getText());
+                        int valida = 1, posProd = 0;
+                        double importe;
+
+                        mpro = (DefaultTableModel) tablaProd.getModel();
+
+                        for(int i=0; i<tablaProd.getRowCount(); i++){
+                            if(regActual == Integer.parseInt(tablaProd.getValueAt(i, 0).toString())){
+                                valida = 2;
+                                posProd = i;
+                                break;
+                            }
+                        }
+
+                        Object[] ob = new Object[4];
+
+                        if(valida == 1){
+                            ob[0] = regActual;
+                            ob[1] = nombre;
+                            ob[2] = 1;
+                            ob[3] = precio;
+
+                            mpro.addRow(ob);
+                            tablaProd.setModel(mpro);
+                        }else{
+                            switch (regActual) {
+                            case 1:
+                                cPlastico++;
+                                importe = cPlastico * precio;
+                                tablaProd.setValueAt(cPlastico, posProd, 2);
+                                tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                                break;
+                            case 2:
+                                cLata++;
+                                importe=cLata * precio;
+                                tablaProd.setValueAt(cLata, posProd, 2);
+                                tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                                break;
+                            case 3:
+                                cCarton++;
+                                importe=cCarton * precio;
+                                tablaProd.setValueAt(cCarton, posProd, 2);
+                                tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                                break;
+                            case 4:
+                                cVidrio++;
+                                importe=cVidrio * precio;
+                                tablaProd.setValueAt(cVidrio, posProd, 2);
+                                tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                                break;
+                            case 5:
+                                cBateria++;
+                                importe=cBateria * precio;
+                                tablaProd.setValueAt(cBateria, posProd, 2);
+                                tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                                break;
+                            }
+                        }
+                        total += precio;
+                        txtTotal.setText("S/."+String.format("%.2f", total));
                     }
-                }
                 
-                Object[] ob = new Object[4];
-                
-                if(valida == 1){
-                    ob[0] = regActual;
-                    ob[1] = nombre;
-                    ob[2] = 1;
-                    ob[3] = precio;
-                    
-                    mpro.addRow(ob);
-                    tablaProd.setModel(mpro);
                 }else{
-                    switch (regActual) {
-                    case 1:
-                        cPlastico++;
-                        importe = cPlastico * precio;
-                        tablaProd.setValueAt(cPlastico, posProd, 2);
-                        tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
-                        break;
-                    case 2:
-                        cLata++;
-                        importe=cLata * precio;
-                        tablaProd.setValueAt(cLata, posProd, 2);
-                        tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
-                        break;
-                    case 3:
-                        cCarton++;
-                        importe=cCarton * precio;
-                        tablaProd.setValueAt(cCarton, posProd, 2);
-                        tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
-                        break;
-                    case 4:
-                        cVidrio++;
-                        importe=cVidrio * precio;
-                        tablaProd.setValueAt(cVidrio, posProd, 2);
-                        tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
-                        break;
-                    case 5:
-                        cBateria++;
-                        importe=cBateria * precio;
-                        tablaProd.setValueAt(cBateria, posProd, 2);
-                        tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
-                        break;
-                    }
+                    ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
+                    JOptionPane.showMessageDialog(null, " \nProducto atascado, maquina inutilizable..."
+                            + "\nLlamar al Operador: 924667644"
+                            + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Error en la Maquina!", JOptionPane.WARNING_MESSAGE, ico);
                 }
-                total += precio;
-                txtTotal.setText("S/."+String.format("%.2f", total));
-                
             }
         }
     }
@@ -280,7 +312,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/separador.png"))); // NOI18N
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 0, 60, 120));
 
-        atras.setBackground(new java.awt.Color(224, 27, 18));
+        atras.setBackground(new java.awt.Color(209, 20, 54));
         atras.setMaximumSize(new java.awt.Dimension(30, 30));
         atras.setMinimumSize(new java.awt.Dimension(30, 30));
         atras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -643,14 +675,21 @@ public class ModuloIngProd extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
-        ModuloMain mm = new ModuloMain();
+        ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
+        String [] arregloOpc = {"Regresar", "Seguir Reciclando"};
+        int op = JOptionPane.showOptionDialog(null, " \n¿Seguro que deseas regresar al menú principal?\n        Perderás todos los datos ingresados.\n ", "¡Espera!", 0, JOptionPane.QUESTION_MESSAGE, ico, arregloOpc, "Seguir Reciclando");
+        
+        if(op == 0){
+            ModuloMain mm = new ModuloMain();
 
-        mm.setSize(new Dimension(1300, 800));
-        mm.setLocation(0,0);
-        Main.Fondo.removeAll();
-        Main.Fondo.add(mm, BorderLayout.CENTER);
-        Main.Fondo.revalidate();
-        Main.Fondo.repaint();
+            mm.setSize(new Dimension(1300, 800));
+            mm.setLocation(0,0);
+            Main.Fondo.removeAll();
+            Main.Fondo.add(mm, BorderLayout.CENTER);
+            Main.Fondo.revalidate();
+            Main.Fondo.repaint();
+        }
+        
     }//GEN-LAST:event_atrasMouseClicked
 
     private void atrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseEntered
@@ -693,7 +732,8 @@ public class ModuloIngProd extends javax.swing.JPanel {
         tModel = tablaProd.getModel();
         fila = tablaProd.getRowCount();
         if(tablaProd.getRowCount() == 0){
-            JOptionPane.showMessageDialog(null, "No se registró productos");
+            ImageIcon icon = new ImageIcon("src/Imagen/IconTodoRec.png");
+            JOptionPane.showMessageDialog(null, "No se registró productos", "¡Maquina Vacía!",JOptionPane.WARNING_MESSAGE, icon);
         }else{
             ModuloIngCliente mCli = new ModuloIngCliente();
 
@@ -750,7 +790,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     public static javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    public static javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblAgregar1;
@@ -758,9 +798,9 @@ public class ModuloIngProd extends javax.swing.JPanel {
     private javax.swing.JLabel lblFotoObj;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrecio;
-    private javax.swing.JLabel lblTotal;
+    public static javax.swing.JLabel lblTotal;
     private javax.swing.JPanel sig;
-    private javax.swing.JTable tablaProd;
+    public static javax.swing.JTable tablaProd;
     private javax.swing.JLabel texto1;
     private javax.swing.JLabel texto2;
     public static javax.swing.JLabel txtNombre;

@@ -11,10 +11,10 @@ package Entidad;
  */
 public class almacen {
     
-    public int AlmaID;
-    public int AlmaProdID;
-    public int AlmaNumProd;
-    public int AlmaLimProd;
+    private int AlmaID;
+    private int AlmaProdID;
+    private int AlmaNumProd;
+    private int AlmaLimProd;
 
     public almacen() {
     }
@@ -57,6 +57,8 @@ public class almacen {
     public void setAlmaLimProd(int AlmaLimProd) {
         this.AlmaLimProd = AlmaLimProd;
     }
+
+    
     
     
     

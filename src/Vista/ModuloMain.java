@@ -5,9 +5,12 @@
  */
 package Vista;
 
+import Modelo.maquinaMod;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,9 +18,8 @@ import java.awt.Dimension;
  */
 public class ModuloMain extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ModuloMain
-     */
+    Modelo.maquinaMod maqMod = new maquinaMod();
+    
     public ModuloMain() {
         initComponents();
     }
@@ -223,17 +225,25 @@ public class ModuloMain extends javax.swing.JPanel {
     }//GEN-LAST:event_btnIniciarMouseExited
 
     private void btnReciclarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReciclarMouseClicked
-        ModuloIngProd mPro = new ModuloIngProd();
+        if(maqMod.atascoMaqui() == 1){
+            ModuloIngProd mPro = new ModuloIngProd();
 
-        mPro.setSize(new Dimension(1300, 800));
-        mPro.setLocation(0,0);
-        Main.Fondo.removeAll();
-        Main.Fondo.add(mPro, BorderLayout.CENTER);
-        Main.Fondo.revalidate();
-        Main.Fondo.repaint();
+            mPro.setSize(new Dimension(1300, 800));
+            mPro.setLocation(0,0);
+            Main.Fondo.removeAll();
+            Main.Fondo.add(mPro, BorderLayout.CENTER);
+            Main.Fondo.revalidate();
+            Main.Fondo.repaint();
+
+            mPro.vector2.setVisible(false);
+            mPro.vector3.setVisible(false);
+        }else{
+            ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
+            JOptionPane.showMessageDialog(null, " \nProducto atascado, maquina inutilizable..."
+                            + "\nLlamar al Operador: 924667644"
+                            + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Error en la Maquina!", JOptionPane.WARNING_MESSAGE, ico);
+        }
         
-        mPro.vector2.setVisible(false);
-        mPro.vector3.setVisible(false);
     }//GEN-LAST:event_btnReciclarMouseClicked
 
     private void btnReciclarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReciclarMouseEntered
