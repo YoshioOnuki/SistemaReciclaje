@@ -23,7 +23,7 @@ public class productoMod {
     ResultSet rs;
     
     DB.ConDB con = new ConDB();
-    Connection acceso;
+    Connection acce;
     
     //Validamos el producto, devolviendo todos los atributos por medio de la entidad
     public Entidad.producto validarProducto(int idP){
@@ -32,8 +32,8 @@ public class productoMod {
         String msql = "SELECT * FROM producto WHERE ProdID=? AND ProdEstd=1";
         
         try {
-            acceso = con.conectardb();
-            ps = acceso.prepareStatement(msql);
+            acce = con.conectardb();
+            ps = acce.prepareStatement(msql);
             ps.setInt(1, idP);
             rs = ps.executeQuery();
             while(rs.next()){
@@ -42,7 +42,8 @@ public class productoMod {
                 entP.setProdPrec(rs.getDouble(3));
                 entP.setProdEstd(rs.getInt(4));
             }
-            
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al validar Producto:  " + e);
         }
@@ -57,14 +58,15 @@ public class productoMod {
         String msql = "SELECT COUNT(ProdID) FROM producto WHERE ProdEstd=1";
         
         try {
-            acceso = con.conectardb();
-            ps = acceso.prepareStatement(msql);
+            acce = con.conectardb();
+            ps = acce.prepareStatement(msql);
             rs = ps.executeQuery();
             
             while (rs.next()) {
                 cont = rs.getInt(1);
             }
-            
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al Objeter contador del producto:  " + e);
         }

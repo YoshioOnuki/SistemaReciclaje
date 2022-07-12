@@ -36,6 +36,8 @@ public class maquinaMod {
             while(rs.next()){
                 r = rs.getInt(1);
             }
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al obtener el Estado del Atasco de la Maquina:  " + e);
         }
@@ -54,6 +56,8 @@ public class maquinaMod {
             ps = acce.prepareStatement(sql);
             ps.setObject(1, ob);
             r = ps.executeUpdate();
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error actualizar el Estado del Atasco de la Maquina" + e);
         }
@@ -77,7 +81,8 @@ public class maquinaMod {
                 entMaq.setMaquiLimHoja(rs.getInt(3));
                 entMaq.setMaquiAtasco(rs.getInt(4));
             }
-            
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al validar la entidad Maquina:  " + e);
         }
@@ -96,6 +101,8 @@ public class maquinaMod {
             ps = acce.prepareStatement(sql);
             ps.setObject(1, ob);
             r = ps.executeUpdate();
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error actualizar las hojas de la Maquina" + e);
         }

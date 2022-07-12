@@ -107,7 +107,7 @@ public class Main extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);

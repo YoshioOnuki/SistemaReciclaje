@@ -1,8 +1,10 @@
 
 package Vista;
 
+import Entidad.almacen;
 import Entidad.maquina;
 import Entidad.producto;
+import Modelo.almacenMod;
 import Modelo.maquinaMod;
 import Modelo.productoMod;
 import java.awt.BorderLayout;
@@ -26,6 +28,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
     Modelo.productoMod modpro = new productoMod();
     Entidad.producto epro = new producto();
     Modelo.maquinaMod maqMod = new maquinaMod();
+    Modelo.almacenMod almaMod = new almacenMod();
         
     int cantRegs;
     int regActual = 0;
@@ -36,6 +39,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
     int cVidrio = 1;
     int cBateria = 1;
     public static double total=0;
+//    public static int contProd=0;
     public static int fila=0;
     public static TableModel tModel;
     
@@ -116,7 +120,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
         int inicio = 1, fin = 100, estd = 2, a = 1;
         int at = (int) (Math.random() * (inicio - fin + 1) + fin);
         
-        if(at >= inicio && at <= 5){
+        if(at >= inicio && at <= 0){
             Object ob = new Object();
             ob = estd;
             a = maqMod.updateAtasco(ob);
@@ -132,85 +136,122 @@ public class ModuloIngProd extends javax.swing.JPanel {
         }else{
             if(txtNombre.getText() == "No Válido" || txtPrecio.getText() == "No Válido"){
                 ImageIcon icon2 = new ImageIcon("src/Imagen/IconNulo.png");
-                
                 JOptionPane.showMessageDialog(null, "Producto introducido No Válido","¡No Válido!", JOptionPane.WARNING_MESSAGE, icon2);
             }else{
-                if(maqMod.atascoMaqui() == 1){
-                    validarAtasco();
-                    if(maqMod.atascoMaqui() == 2){
+                Entidad.almacen alma1Pla = new almacen();
+                Entidad.almacen alma2Lat = new almacen();
+                Entidad.almacen alma3Car = new almacen();
+                Entidad.almacen alma4Vid = new almacen();
+                Entidad.almacen alma5Bat = new almacen();
+                alma1Pla = almaMod.validarAlmacen(1);
+                alma2Lat = almaMod.validarAlmacen(2);
+                alma3Car = almaMod.validarAlmacen(3);
+                alma4Vid = almaMod.validarAlmacen(4);
+                alma5Bat = almaMod.validarAlmacen(5);
+                
+                if(cPlastico + alma1Pla.getAlmaNumProd() >= alma1Pla.getAlmaLimProd() && regActual == 1){
+                    ImageIcon ico = new ImageIcon("src/Imagen/IconPlastico.png");
+                    JOptionPane.showMessageDialog(null, " \nEl almacenamiento del Plastico se encuentra lleno."
+                        + "\nLlamar al Operador: 924667644"
+                        + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Almacenamiento Lleno!", JOptionPane.WARNING_MESSAGE, ico);
+                }else if(cLata + alma2Lat.getAlmaNumProd() >= alma2Lat.getAlmaLimProd() && regActual == 2){
+                    ImageIcon ico = new ImageIcon("src/Imagen/IconLata.png");
+                    JOptionPane.showMessageDialog(null, " \nEl almacenamiento de la Lata se encuentra lleno."
+                        + "\nLlamar al Operador: 924667644"
+                        + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Almacenamiento Lleno!", JOptionPane.WARNING_MESSAGE, ico);
+                }else if(cCarton + alma3Car.getAlmaNumProd() >= alma3Car.getAlmaLimProd() && regActual == 3){
+                    ImageIcon ico = new ImageIcon("src/Imagen/IconCarton.png");
+                    JOptionPane.showMessageDialog(null, " \nEl almacenamiento del Carton se encuentra lleno."
+                        + "\nLlamar al Operador: 924667644"
+                        + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Almacenamiento Lleno!", JOptionPane.WARNING_MESSAGE, ico);
+                }else if(cVidrio + alma4Vid.getAlmaNumProd() >= alma4Vid.getAlmaLimProd() && regActual == 4){
+                    ImageIcon ico = new ImageIcon("src/Imagen/IconVidrio.png");
+                    JOptionPane.showMessageDialog(null, " \nEl almacenamiento del Vidrio se encuentra lleno."
+                        + "\nLlamar al Operador: 924667644"
+                        + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Almacenamiento Lleno!", JOptionPane.WARNING_MESSAGE, ico);
+                }else if(cBateria + alma5Bat.getAlmaNumProd() >= alma5Bat.getAlmaLimProd() && regActual == 5){
+                    ImageIcon ico = new ImageIcon("src/Imagen/IconBateria.png");
+                    JOptionPane.showMessageDialog(null, " \nEl almacenamiento de la Batería se encuentra lleno."
+                        + "\nLlamar al Operador: 924667644"
+                        + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Almacenamiento Lleno!", JOptionPane.WARNING_MESSAGE, ico);
+                }else{
+                    if(maqMod.atascoMaqui() == 1){
+                        validarAtasco();
+                        
+                        if(maqMod.atascoMaqui() == 2){
+                            ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
+                            JOptionPane.showMessageDialog(null, " \nProducto atascado, maquina inutilizable..."
+                                + "\nLlamar al Operador: 924667644"
+                                + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Error en la Maquina!", JOptionPane.WARNING_MESSAGE, ico);
+                        }else{
+                            String nombre = txtNombre.getText();
+                            double precio = Double.parseDouble(txtPrecio.getText());
+                            int valida = 1, posProd = 0;
+                            double importe;
+
+                            mpro = (DefaultTableModel) tablaProd.getModel();
+
+                            for(int i=0; i<tablaProd.getRowCount(); i++){
+                                if(regActual == Integer.parseInt(tablaProd.getValueAt(i, 0).toString())){
+                                    valida = 2;
+                                    posProd = i;
+                                    break;
+                                }
+                            }
+
+                            Object[] ob = new Object[4];
+
+                            if(valida == 1){
+                                ob[0] = regActual;
+                                ob[1] = nombre;
+                                ob[2] = 1;
+                                ob[3] = precio;
+
+                                mpro.addRow(ob);
+                                tablaProd.setModel(mpro);
+                            }else{
+                                switch (regActual) {
+                                case 1:
+                                    cPlastico++;
+                                    importe = cPlastico * precio;
+                                    tablaProd.setValueAt(cPlastico, posProd, 2);
+                                    tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                                    break;
+                                case 2:
+                                    cLata++;
+                                    importe=cLata * precio;
+                                    tablaProd.setValueAt(cLata, posProd, 2);
+                                    tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                                    break;
+                                case 3:
+                                    cCarton++;
+                                    importe=cCarton * precio;
+                                    tablaProd.setValueAt(cCarton, posProd, 2);
+                                    tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                                    break;
+                                case 4:
+                                    cVidrio++;
+                                    importe=cVidrio * precio;
+                                    tablaProd.setValueAt(cVidrio, posProd, 2);
+                                    tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                                    break;
+                                case 5:
+                                    cBateria++;
+                                    importe=cBateria * precio;
+                                    tablaProd.setValueAt(cBateria, posProd, 2);
+                                    tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
+                                    break;
+                                }
+                            }
+                            total += precio;
+                            txtTotal.setText("S/."+String.format("%.2f", total));
+                        }
+                    }else{
                         ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
                         JOptionPane.showMessageDialog(null, " \nProducto atascado, maquina inutilizable..."
-                            + "\nLlamar al Operador: 924667644"
-                            + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Error en la Maquina!", JOptionPane.WARNING_MESSAGE, ico);
-                    }else{
-                        String nombre = txtNombre.getText();
-                        double precio = Double.parseDouble(txtPrecio.getText());
-                        int valida = 1, posProd = 0;
-                        double importe;
-
-                        mpro = (DefaultTableModel) tablaProd.getModel();
-
-                        for(int i=0; i<tablaProd.getRowCount(); i++){
-                            if(regActual == Integer.parseInt(tablaProd.getValueAt(i, 0).toString())){
-                                valida = 2;
-                                posProd = i;
-                                break;
-                            }
-                        }
-
-                        Object[] ob = new Object[4];
-
-                        if(valida == 1){
-                            ob[0] = regActual;
-                            ob[1] = nombre;
-                            ob[2] = 1;
-                            ob[3] = precio;
-
-                            mpro.addRow(ob);
-                            tablaProd.setModel(mpro);
-                        }else{
-                            switch (regActual) {
-                            case 1:
-                                cPlastico++;
-                                importe = cPlastico * precio;
-                                tablaProd.setValueAt(cPlastico, posProd, 2);
-                                tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
-                                break;
-                            case 2:
-                                cLata++;
-                                importe=cLata * precio;
-                                tablaProd.setValueAt(cLata, posProd, 2);
-                                tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
-                                break;
-                            case 3:
-                                cCarton++;
-                                importe=cCarton * precio;
-                                tablaProd.setValueAt(cCarton, posProd, 2);
-                                tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
-                                break;
-                            case 4:
-                                cVidrio++;
-                                importe=cVidrio * precio;
-                                tablaProd.setValueAt(cVidrio, posProd, 2);
-                                tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
-                                break;
-                            case 5:
-                                cBateria++;
-                                importe=cBateria * precio;
-                                tablaProd.setValueAt(cBateria, posProd, 2);
-                                tablaProd.setValueAt(String.format("%.2f", importe), posProd, 3);
-                                break;
-                            }
-                        }
-                        total += precio;
-                        txtTotal.setText("S/."+String.format("%.2f", total));
+                                + "\nLlamar al Operador: 924667644"
+                                + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Error en la Maquina!", JOptionPane.WARNING_MESSAGE, ico);
                     }
-                
-                }else{
-                    ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
-                    JOptionPane.showMessageDialog(null, " \nProducto atascado, maquina inutilizable..."
-                            + "\nLlamar al Operador: 924667644"
-                            + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Error en la Maquina!", JOptionPane.WARNING_MESSAGE, ico);
                 }
             }
         }

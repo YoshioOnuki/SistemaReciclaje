@@ -35,6 +35,8 @@ public class clienteMod {
             ps.setObject(3, ob[2]);
             ps.setObject(4, ob[3]);
             r = ps.executeUpdate();
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al ingresar cliente para realizar el recibo" + e);
         }
@@ -55,6 +57,8 @@ public class clienteMod {
             while(rs.next()){
                 r = rs.getInt(1);
             }
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al obtener el último ID del cliente:  " + e);
         }
@@ -75,6 +79,8 @@ public class clienteMod {
             while(rs.next()){
                 r = rs.getInt(1);
             }
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al obtener ID del cliente por DNI: " + e);
         }
@@ -93,6 +99,8 @@ public class clienteMod {
             ps.setObject(1, ob);
             ps.setObject(2, cliID);
             r = ps.executeUpdate();
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al ingresar correo del cliente" + e);
         }
@@ -114,6 +122,8 @@ public class clienteMod {
             while(rs.next()){
                 r = rs.getInt(1);
             }
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al obtener ID del Email por el DNI del cliente: " + e);
         }
@@ -139,6 +149,8 @@ public class clienteMod {
                 eCli.setClienApe(rs.getString(4));
                 eCli.setClienDirec(rs.getString(5));
             }
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al obtener datos del cliente por ID:  " + e);
         }
@@ -164,6 +176,8 @@ public class clienteMod {
                 eCli.setClienApe(rs.getString(4));
                 eCli.setClienDirec(rs.getString(5));
             }
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al obtener datos del cliente por DNI:  " + e);
         }
@@ -186,6 +200,8 @@ public class clienteMod {
             while(rs.next()){
                 r = rs.getString(1);
             }
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al obtener datos del cliente por DNI:  " + e);
         }

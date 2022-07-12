@@ -32,20 +32,15 @@ public class reciboMod {
         this.d = dat;
         
         // Si  el rango es de 100 a 999, no se aumentan ceros a la izquierda "100"
-        if ((this.d >= 100) || (this.d < 1000)) {
+        // Si el rango es de 10 a 99, se aumenta un cero a la izquierda "010"
+        // Si el rango es de 10 a 99, se aumenta un dos a la izquierda "001"
+        if ((this.d >= 99) || (this.d < 999)) {
             int can = c + this.d;
             reciNum = "" + can;
-        }
-        
-        // Si el rango es de 10 a 99, se aumenta un cero a la izquierda "010"
-        if ((this.d >= 9) || (this.d < 100)) {
+        }else if ((this.d >= 9) || (this.d < 99)) {
             int can = c + this.d;
             reciNum = "0" + can;
-        }
-        
-
-        // Si el rango es de 10 a 99, se aumenta un dos a la izquierda "001"
-        if (this.d < 9) {
+        }else if (this.d < 9) {
             int can = c + this.d;
             reciNum = "00" + can;
         }
@@ -69,6 +64,8 @@ public class reciboMod {
             while(rs.next()){
                 serie = rs.getString(1);
             }
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("error en obtener el ultimo numero de recibo " + e);
         }
@@ -88,6 +85,8 @@ public class reciboMod {
             while(rs.next()){
                 serie = rs.getInt(1);
             }
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("error en obtener el maximo ID recibo " + e);
         }
@@ -109,6 +108,8 @@ public class reciboMod {
             ps.setObject(4, ob[3]);
             ps.setObject(5, ob[4]);
             r = ps.executeUpdate();
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al ingresar datos del recibo " + e);
         }

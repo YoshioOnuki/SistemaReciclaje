@@ -323,7 +323,7 @@
                   <Font name="SF UI Display" size="26" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="BIENBENIDO"/>
+                <Property name="text" type="java.lang.String" value="BIENVENIDO"/>
               </Properties>
             </Component>
           </SubComponents>

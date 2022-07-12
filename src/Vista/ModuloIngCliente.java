@@ -5,8 +5,10 @@
  */
 package Vista;
 
+import Entidad.almacen;
 import Entidad.cliente;
 import Entidad.maquina;
+import Modelo.almacenMod;
 import Modelo.clienteMod;
 import Modelo.detaReciMod;
 import Modelo.maquinaMod;
@@ -61,8 +63,10 @@ public class ModuloIngCliente extends javax.swing.JPanel {
     Modelo.clienteMod cliMod = new clienteMod();
     Modelo.detaReciMod detaReciMod = new detaReciMod();
     Modelo.maquinaMod maqMod = new maquinaMod();
+    Modelo.almacenMod almaMod = new almacenMod();
     Entidad.cliente eClien = new cliente();
     Entidad.maquina maq = new maquina();
+    Entidad.almacen alma = new almacen();
     
     
     DefaultTableModel tModel2;
@@ -105,6 +109,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         if(num == null){
             rNum = "REC001";
         }else{
+            System.out.println(num);
             char r1 = num.charAt(3);
             char r2 = num.charAt(4);
             char r3 = num.charAt(5);
@@ -268,6 +273,12 @@ public class ModuloIngCliente extends javax.swing.JPanel {
             obDet[3] = ProdID;
 
             detaReciMod.addDetaRecibo(obDet);
+            
+            alma = almaMod.validarAlmacen(ProdID);
+            Object obAlma = new Object();
+            obAlma = detaReciCant + alma.getAlmaNumProd();
+            
+            almaMod.updateAlmacen(obAlma, ProdID);
         }
         
         eClien = cliMod.datosClienteID(ClienID);
@@ -338,7 +349,6 @@ public class ModuloIngCliente extends javax.swing.JPanel {
             System.out.println("Error al abrir el pdf " + e);
         }
     }
-    
     
     //metodo que me crea un pdf del recibo
     public void pdf(String codigo, String fecha, String dni, String nombre, String ape, String dir, double total) throws FileNotFoundException, DocumentException {
@@ -959,7 +969,8 @@ public class ModuloIngCliente extends javax.swing.JPanel {
     private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
         ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
         String [] arregloOpc = {"Regresar", "Seguir Reciclando"};
-        int op = JOptionPane.showOptionDialog(null, " \n¿Seguro que deseas regresar al menú principal?\n        Perderás todos los datos ingresados.\n ", "¡Espera!", 0, JOptionPane.QUESTION_MESSAGE, ico, arregloOpc, "Seguir Reciclando");
+        int op = JOptionPane.showOptionDialog(null, " \n¿Seguro que deseas regresar al menú principal?"
+                + "\n        Perderás todos los datos ingresados.\n ", "¡Espera!", 0, JOptionPane.QUESTION_MESSAGE, ico, arregloOpc, "Seguir Reciclando");
         
         if(op == 0){
             ModuloMain mm = new ModuloMain();

@@ -34,6 +34,8 @@ public class detaReciMod {
             ps.setObject(3, o[2]);
             ps.setObject(4, o[3]);
             r = ps.executeUpdate();
+            //Cerramos la conexion
+            acce.close();
         } catch (Exception e) {
             System.out.println("Error al ingresar el Detalle del Recido " + e);
         }

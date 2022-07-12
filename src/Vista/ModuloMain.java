@@ -5,7 +5,9 @@
  */
 package Vista;
 
+import Entidad.almacen;
 import Entidad.maquina;
+import Modelo.almacenMod;
 import Modelo.maquinaMod;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
 public class ModuloMain extends javax.swing.JPanel {
 
     Modelo.maquinaMod maqMod = new maquinaMod();
+    Modelo.almacenMod almaMod = new almacenMod();
     Entidad.maquina maq = new maquina();
     
     public ModuloMain() {
@@ -151,7 +154,7 @@ public class ModuloMain extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("SF UI Display", 1, 26)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("BIENBENIDO");
+        jLabel4.setText("BIENVENIDO");
 
         javax.swing.GroupLayout PanelOpcLayout = new javax.swing.GroupLayout(PanelOpc);
         PanelOpc.setLayout(PanelOpcLayout);
@@ -229,18 +232,35 @@ public class ModuloMain extends javax.swing.JPanel {
 
     private void btnReciclarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReciclarMouseClicked
         if(maqMod.atascoMaqui() == 1){
-            ModuloIngProd mPro = new ModuloIngProd();
-
-            mPro.setSize(new Dimension(1300, 800));
-            mPro.setLocation(0,0);
-            Main.Fondo.removeAll();
-            Main.Fondo.add(mPro, BorderLayout.CENTER);
-            Main.Fondo.revalidate();
-            Main.Fondo.repaint();
-
-            mPro.vector2.setVisible(false);
-            mPro.vector3.setVisible(false);
+            Entidad.almacen alma1Pla = new almacen();
+            Entidad.almacen alma2Lat = new almacen();
+            Entidad.almacen alma3Car = new almacen();
+            Entidad.almacen alma4Vid = new almacen();
+            Entidad.almacen alma5Bat = new almacen();
+            alma1Pla = almaMod.validarAlmacen(1);
+            alma2Lat = almaMod.validarAlmacen(2);
+            alma3Car = almaMod.validarAlmacen(3);
+            alma4Vid = almaMod.validarAlmacen(4);
+            alma5Bat = almaMod.validarAlmacen(5);
             
+            if(alma1Pla.getAlmaNumProd() >= alma1Pla.getAlmaLimProd() && alma2Lat.getAlmaNumProd() >= alma2Lat.getAlmaLimProd() && alma3Car.getAlmaNumProd() >= alma3Car.getAlmaLimProd() && alma4Vid.getAlmaNumProd() >= alma4Vid.getAlmaLimProd() && alma5Bat.getAlmaNumProd() >= alma5Bat.getAlmaLimProd()){
+                ImageIcon ico = new ImageIcon("src/Imagen/IconProductos.png");
+                    JOptionPane.showMessageDialog(null, " \nEl almacenamiento total de la máquina se encuentra lleno."
+                        + "\nLlamar al Operador: 924667644"
+                        + "\ny/o escribir al correo: reciclando.juntos.peru@gmail.com\n ", "¡Almacenamiento Lleno!", JOptionPane.WARNING_MESSAGE, ico);
+            }else{
+                ModuloIngProd mPro = new ModuloIngProd();
+
+                mPro.setSize(new Dimension(1300, 800));
+                mPro.setLocation(0,0);
+                Main.Fondo.removeAll();
+                Main.Fondo.add(mPro, BorderLayout.CENTER);
+                Main.Fondo.revalidate();
+                Main.Fondo.repaint();
+
+                mPro.vector2.setVisible(false);
+                mPro.vector3.setVisible(false);
+            }
         }else{
             ImageIcon ico = new ImageIcon("src/Imagen/IconJOP.png");
             JOptionPane.showMessageDialog(null, " \nProducto atascado, maquina inutilizable..."
