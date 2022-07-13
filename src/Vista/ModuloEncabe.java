@@ -383,7 +383,14 @@ public class ModuloEncabe extends javax.swing.JPanel {
     }//GEN-LAST:event_btnProductosMouseExited
 
     private void btnMaquinaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaquinaMouseClicked
-        
+        ModuloMaquina mMaq = new ModuloMaquina();
+
+        mMaq.setSize(new Dimension(1300, 680));
+        mMaq.setLocation(0,0);
+        ModuloOpeDash.Principal.removeAll();
+        ModuloOpeDash.Principal.add(mMaq,BorderLayout.CENTER);
+        ModuloOpeDash.Principal.revalidate();
+        ModuloOpeDash.Principal.repaint();
         
         SelecProd.setVisible(false);
         SelecMaq.setVisible(true);

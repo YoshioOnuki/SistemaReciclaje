@@ -6,6 +6,7 @@
 package Modelo;
 
 import DB.ConDB;
+import Entidad.producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,5 +42,29 @@ public class detaReciMod {
         }
         
         return r;
+    }
+    
+    //Haciendo la consulta para mostrar los datos de los productos en una tabla
+    public Object[] consultarReporProdTotal(int n){
+        Object[] o = new Object[2];
+        
+        String sql = "SELECT SUM(DetaReciCant), SUM(DetaReciImpor) FROM detareci WHERE ProdID=?";
+   
+        try {
+            acce = con.conectardb();
+            ps = acce.prepareStatement(sql);
+            ps.setInt(1, n);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                o[0] = rs.getInt(1);
+                o[1] = rs.getDouble(2);
+            }
+            //Cerramos la conexion
+            acce.close();
+        } catch (Exception e) {
+            System.out.println("error consultar datos de sumatorias de cantidad e importe del detalle de recibo: " + e);
+        }
+
+        return o;
     }
 }

@@ -6,6 +6,7 @@
 package Modelo;
 
 import DB.ConDB;
+import Entidad.detalleRecibo;
 import Entidad.producto;
 import Vista.ModuloIngProd;
 import com.sun.org.apache.bcel.internal.generic.AALOAD;
@@ -77,7 +78,7 @@ public class productoMod {
     
 
     //Haciendo la consulta para mostrar los datos de los productos en una tabla
-    public DefaultTableModel consultarProdcutos(){
+    public DefaultTableModel consultarProductos(){
         String [] encabe={"ID PROD","DESCRIPCION","PRECIO","ESTADO"};
         DefaultTableModel m = new DefaultTableModel(null, encabe);
         Object[] o = new Object[4];
@@ -96,6 +97,42 @@ public class productoMod {
                 o[3] = estado;
                 
                 m.addRow(o);
+            }
+            //Cerramos la conexion
+            acce.close();
+        } catch (Exception e) {
+            System.out.println("error consultar datos de los productos en reportes para mostrar en una tabla: " + e);
+        }
+
+        return m;
+    }
+    
+    
+    //Haciendo la consulta para mostrar los datos de los productos en una tabla
+    public DefaultTableModel consultarReporProdTotal(){
+        Modelo.detaReciMod detRecMod = new detaReciMod();
+        Object[] ob = new Object[2];
+        int n=1;
+        
+        String [] encabe={"ID PROD","DESCRIPCION","CANTIDAD","TOTAL"};
+        DefaultTableModel m = new DefaultTableModel(null, encabe);
+        Object[] o = new Object[4];
+        
+        String sql = "SELECT ProdID, ProdDesc FROM producto WHERE ProdEstd=1";
+   
+        try {
+            acce = con.conectardb();
+            ps = acce.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                ob = detRecMod.consultarReporProdTotal(n);
+                
+                o[0] = rs.getInt(1);
+                o[1] = rs.getString(2);
+                o[2] = ob[0];
+                o[3] = ob[1];
+                m.addRow(o);
+                n++;
             }
             //Cerramos la conexion
             acce.close();

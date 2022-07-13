@@ -18,13 +18,13 @@ import javax.swing.table.TableColumn;
  *
  * @author yoshi
  */
-public class ModuloProductos extends javax.swing.JPanel {
+public class ModuloReporteProdDia extends javax.swing.JPanel {
 
     DefaultTableModel m = new DefaultTableModel();
     Modelo.productoMod prodMod = new productoMod();
     
     
-    public ModuloProductos() {
+    public ModuloReporteProdDia() {
         initComponents();
         mostrarProd();
     }
@@ -63,23 +63,13 @@ public class ModuloProductos extends javax.swing.JPanel {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        menuProd = new javax.swing.JPopupMenu();
-        actualizar = new javax.swing.JMenuItem();
         atras = new javax.swing.JPanel();
         atrasIcon = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaProd = new javax.swing.JTable();
-
-        actualizar.setFont(new java.awt.Font("SF UI Display", 1, 15)); // NOI18N
-        actualizar.setText("Actualizar");
-        actualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actualizarActionPerformed(evt);
-            }
-        });
-        menuProd.add(actualizar);
+        txtFecNac = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1300, 680));
@@ -117,9 +107,7 @@ public class ModuloProductos extends javax.swing.JPanel {
 
         jLabel2.setBackground(new java.awt.Color(0, 23, 35));
         jLabel2.setFont(new java.awt.Font("SF UI Display", 1, 36)); // NOI18N
-        jLabel2.setText("Productos");
-
-        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel2.setText("Productos por día");
 
         tablaProd.setFont(new java.awt.Font("SF UI Display", 0, 17)); // NOI18N
         tablaProd.setModel(new javax.swing.table.DefaultTableModel(
@@ -127,7 +115,7 @@ public class ModuloProductos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID PROD", "DESCRIPCION", "PRECIO", "ESTADO"
+                "ID PROD", "DESCRIPCION", "CANTIDAD", "TOTAL"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -138,19 +126,23 @@ public class ModuloProductos extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tablaProd.setComponentPopupMenu(menuProd);
         jScrollPane1.setViewportView(tablaProd);
         if (tablaProd.getColumnModel().getColumnCount() > 0) {
             tablaProd.getColumnModel().getColumn(0).setMinWidth(90);
             tablaProd.getColumnModel().getColumn(0).setPreferredWidth(90);
             tablaProd.getColumnModel().getColumn(0).setMaxWidth(90);
-            tablaProd.getColumnModel().getColumn(2).setMinWidth(90);
-            tablaProd.getColumnModel().getColumn(2).setPreferredWidth(90);
-            tablaProd.getColumnModel().getColumn(2).setMaxWidth(90);
+            tablaProd.getColumnModel().getColumn(2).setMinWidth(120);
+            tablaProd.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tablaProd.getColumnModel().getColumn(2).setMaxWidth(120);
             tablaProd.getColumnModel().getColumn(3).setMinWidth(120);
             tablaProd.getColumnModel().getColumn(3).setPreferredWidth(120);
             tablaProd.getColumnModel().getColumn(3).setMaxWidth(120);
         }
+
+        txtFecNac.setFont(new java.awt.Font("SF UI Display", 0, 17)); // NOI18N
+        txtFecNac.setMaximumSize(new java.awt.Dimension(230, 26));
+        txtFecNac.setMinimumSize(new java.awt.Dimension(230, 26));
+        txtFecNac.setPreferredSize(new java.awt.Dimension(230, 26));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -162,15 +154,17 @@ public class ModuloProductos extends javax.swing.JPanel {
                         .addGap(20, 20, 20)
                         .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1036, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1036, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jLabel2)))
                 .addContainerGap(144, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(309, 309, 309))
         );
         layout.setVerticalGroup(
@@ -182,7 +176,9 @@ public class ModuloProductos extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addGap(50, 50, 50)
+                .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -207,20 +203,15 @@ public class ModuloProductos extends javax.swing.JPanel {
         atras.setBackground(new Color(200, 42, 42));
     }//GEN-LAST:event_atrasMouseExited
 
-    private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_actualizarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem actualizar;
     public static javax.swing.JPanel atras;
     public static javax.swing.JLabel atrasIcon;
     private javax.swing.JLabel jLabel2;
     public static javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JPopupMenu menuProd;
     public static javax.swing.JTable tablaProd;
+    private com.toedter.calendar.JDateChooser txtFecNac;
     // End of variables declaration//GEN-END:variables
 }

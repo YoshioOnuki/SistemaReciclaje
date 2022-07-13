@@ -109,9 +109,9 @@ public class ModuloEncabeRep extends javax.swing.JPanel {
                 .addComponent(SelecProdDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(btnProdDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(btnProdDiaLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 10, Short.MAX_VALUE)
                     .addComponent(lblAgregar6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 10, Short.MAX_VALUE)))
         );
         btnProdDiaLayout.setVerticalGroup(
             btnProdDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,9 +191,9 @@ public class ModuloEncabeRep extends javax.swing.JPanel {
                 .addComponent(SelecProdTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(btnProdTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(btnProdTotalLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 10, Short.MAX_VALUE)
                     .addComponent(lblAgregar7, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 10, Short.MAX_VALUE)))
         );
         btnProdTotalLayout.setVerticalGroup(
             btnProdTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +248,17 @@ public class ModuloEncabeRep extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProdDiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdDiaMouseClicked
+        ModuloReporteProdDia mRep = new ModuloReporteProdDia();
 
+        mRep.setSize(new Dimension(1300, 680));
+        mRep.setLocation(0,0);
+        ModuloOpeDash.Principal.removeAll();
+        ModuloOpeDash.Principal.add(mRep,BorderLayout.CENTER);
+        ModuloOpeDash.Principal.revalidate();
+        ModuloOpeDash.Principal.repaint();
+        
+        SelecProdDia.setVisible(true);
+        SelecProdTotal.setVisible(false);
     }//GEN-LAST:event_btnProdDiaMouseClicked
 
     private void btnProdDiaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdDiaMouseEntered
@@ -260,7 +270,17 @@ public class ModuloEncabeRep extends javax.swing.JPanel {
     }//GEN-LAST:event_btnProdDiaMouseExited
 
     private void btnProdTotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdTotalMouseClicked
-        // TODO add your handling code here:
+        ModuloReporteProdTotal mRep = new ModuloReporteProdTotal();
+
+        mRep.setSize(new Dimension(1300, 680));
+        mRep.setLocation(0,0);
+        ModuloOpeDash.Principal.removeAll();
+        ModuloOpeDash.Principal.add(mRep,BorderLayout.CENTER);
+        ModuloOpeDash.Principal.revalidate();
+        ModuloOpeDash.Principal.repaint();
+        
+        SelecProdDia.setVisible(false);
+        SelecProdTotal.setVisible(true);
     }//GEN-LAST:event_btnProdTotalMouseClicked
 
     private void btnProdTotalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProdTotalMouseEntered
