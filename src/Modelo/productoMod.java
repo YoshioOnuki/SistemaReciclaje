@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -75,7 +76,35 @@ public class productoMod {
     }
     
 
-    
+    //Haciendo la consulta para mostrar los datos de los productos en una tabla
+    public DefaultTableModel consultarProdcutos(){
+        String [] encabe={"ID PROD","DESCRIPCION","PRECIO","ESTADO"};
+        DefaultTableModel m = new DefaultTableModel(null, encabe);
+        Object[] o = new Object[4];
+        String estado = "ACTIVO";
+        
+        String sql = "SELECT ProdID, ProdDesc, ProdPrec FROM producto WHERE ProdEstd=1";
+   
+        try {
+            acce = con.conectardb();
+            ps = acce.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                o[0] = rs.getInt(1);
+                o[1] = rs.getString(2);
+                o[2] = rs.getDouble(3);
+                o[3] = estado;
+                
+                m.addRow(o);
+            }
+            //Cerramos la conexion
+            acce.close();
+        } catch (Exception e) {
+            System.out.println("error consultar datos de los productos en reportes para mostrar en una tabla: " + e);
+        }
+
+        return m;
+    }
     
     
     

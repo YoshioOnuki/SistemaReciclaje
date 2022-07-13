@@ -75,6 +75,9 @@ public class ModuloLogin extends javax.swing.JPanel {
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Logo.png"))); // NOI18N
+        jLabel5.setMaximumSize(new java.awt.Dimension(152, 102));
+        jLabel5.setMinimumSize(new java.awt.Dimension(152, 102));
+        jLabel5.setPreferredSize(new java.awt.Dimension(152, 102));
 
         javax.swing.GroupLayout EncabeLayout = new javax.swing.GroupLayout(Encabe);
         Encabe.setLayout(EncabeLayout);
@@ -82,7 +85,7 @@ public class ModuloLogin extends javax.swing.JPanel {
             EncabeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EncabeLayout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -204,7 +207,7 @@ public class ModuloLogin extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnIniciarSesion.setBackground(new java.awt.Color(75, 134, 115));
+        btnIniciarSesion.setBackground(new java.awt.Color(51, 71, 86));
         btnIniciarSesion.setMaximumSize(new java.awt.Dimension(160, 50));
         btnIniciarSesion.setMinimumSize(new java.awt.Dimension(160, 50));
         btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -360,11 +363,11 @@ public class ModuloLogin extends javax.swing.JPanel {
     }//GEN-LAST:event_btnIniciarSesionMouseClicked
 
     private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
-        btnIniciarSesion.setBackground(new Color(78, 176, 145));
+        btnIniciarSesion.setBackground(new Color(48, 105, 147));
     }//GEN-LAST:event_btnIniciarSesionMouseEntered
 
     private void btnIniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseExited
-        btnIniciarSesion.setBackground(new Color(75,134,115));
+        btnIniciarSesion.setBackground(new Color(51,71,86));
     }//GEN-LAST:event_btnIniciarSesionMouseExited
 
 

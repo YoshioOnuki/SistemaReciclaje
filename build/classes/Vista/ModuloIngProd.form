@@ -641,7 +641,7 @@
     <Container class="javax.swing.JPanel" name="btnAgregar">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="73" green="86" red="4b" type="rgb"/>
+          <Color blue="56" green="47" red="33" type="rgb"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[180, 60]"/>
@@ -770,7 +770,7 @@
     <Container class="javax.swing.JPanel" name="btnContinuar">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="73" green="86" red="4b" type="rgb"/>
+          <Color blue="56" green="47" red="33" type="rgb"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[180, 60]"/>

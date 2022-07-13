@@ -388,7 +388,7 @@
     <Container class="javax.swing.JPanel" name="btnSoyCliente">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="73" green="86" red="4b" type="rgb"/>
+          <Color blue="56" green="47" red="33" type="rgb"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[30, 29]"/>
@@ -505,7 +505,7 @@
     <Container class="javax.swing.JPanel" name="btnRecibo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="73" green="86" red="4b" type="rgb"/>
+          <Color blue="56" green="47" red="33" type="rgb"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[160, 50]"/>

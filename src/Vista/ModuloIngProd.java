@@ -485,7 +485,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
         antIcon1Co.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/ant2Co.png"))); // NOI18N
         sig.add(antIcon1Co, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        btnAgregar.setBackground(new java.awt.Color(75, 134, 115));
+        btnAgregar.setBackground(new java.awt.Color(51, 71, 86));
         btnAgregar.setMaximumSize(new java.awt.Dimension(180, 60));
         btnAgregar.setMinimumSize(new java.awt.Dimension(180, 60));
         btnAgregar.setPreferredSize(new java.awt.Dimension(180, 60));
@@ -560,7 +560,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
             tablaProd.getColumnModel().getColumn(3).setMaxWidth(100);
         }
 
-        btnContinuar.setBackground(new java.awt.Color(75, 134, 115));
+        btnContinuar.setBackground(new java.awt.Color(51, 71, 86));
         btnContinuar.setMaximumSize(new java.awt.Dimension(180, 60));
         btnContinuar.setMinimumSize(new java.awt.Dimension(180, 60));
         btnContinuar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -792,11 +792,11 @@ public class ModuloIngProd extends javax.swing.JPanel {
     }//GEN-LAST:event_btnContinuarMouseClicked
 
     private void btnContinuarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinuarMouseEntered
-        btnContinuar.setBackground(new Color(78, 176, 145));
+        btnContinuar.setBackground(new Color(48, 105, 147));
     }//GEN-LAST:event_btnContinuarMouseEntered
 
     private void btnContinuarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContinuarMouseExited
-        btnContinuar.setBackground(new Color(75,134,115));
+        btnContinuar.setBackground(new Color(51,71,86));
     }//GEN-LAST:event_btnContinuarMouseExited
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
@@ -804,11 +804,11 @@ public class ModuloIngProd extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAgregarMouseClicked
 
     private void btnAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseEntered
-        btnAgregar.setBackground(new Color(78, 176, 145));
+        btnAgregar.setBackground(new Color(48, 105, 147));
     }//GEN-LAST:event_btnAgregarMouseEntered
 
     private void btnAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseExited
-        btnAgregar.setBackground(new Color(75,134,115));
+        btnAgregar.setBackground(new Color(51,71,86));
     }//GEN-LAST:event_btnAgregarMouseExited
 
 

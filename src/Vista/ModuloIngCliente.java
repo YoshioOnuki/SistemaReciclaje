@@ -620,7 +620,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/separador.png"))); // NOI18N
         Encabe.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 0, 60, 120));
 
-        btnSoyCliente.setBackground(new java.awt.Color(75, 134, 115));
+        btnSoyCliente.setBackground(new java.awt.Color(51, 71, 86));
         btnSoyCliente.setMaximumSize(new java.awt.Dimension(30, 29));
         btnSoyCliente.setMinimumSize(new java.awt.Dimension(30, 29));
         btnSoyCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -685,7 +685,7 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         texto1.setFont(new java.awt.Font("SF UI Display", 1, 24)); // NOI18N
         texto1.setText("Productos a reciclar");
 
-        btnRecibo.setBackground(new java.awt.Color(75, 134, 115));
+        btnRecibo.setBackground(new java.awt.Color(51, 71, 86));
         btnRecibo.setMaximumSize(new java.awt.Dimension(160, 50));
         btnRecibo.setMinimumSize(new java.awt.Dimension(160, 50));
         btnRecibo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1003,11 +1003,11 @@ public class ModuloIngCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_btnReciboMouseClicked
 
     private void btnReciboMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReciboMouseEntered
-        btnRecibo.setBackground(new Color(78, 176, 145));
+        btnRecibo.setBackground(new Color(48, 105, 147));
     }//GEN-LAST:event_btnReciboMouseEntered
 
     private void btnReciboMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReciboMouseExited
-        btnRecibo.setBackground(new Color(75,134,115));
+        btnRecibo.setBackground(new Color(51,71,86));
     }//GEN-LAST:event_btnReciboMouseExited
 
     private void btnSoyClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSoyClienteMouseClicked
@@ -1015,11 +1015,11 @@ public class ModuloIngCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSoyClienteMouseClicked
 
     private void btnSoyClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSoyClienteMouseEntered
-        btnSoyCliente.setBackground(new Color(78, 176, 145));
+        btnSoyCliente.setBackground(new Color(48, 105, 147));
     }//GEN-LAST:event_btnSoyClienteMouseEntered
 
     private void btnSoyClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSoyClienteMouseExited
-        btnSoyCliente.setBackground(new Color(75,134,115));
+        btnSoyCliente.setBackground(new Color(51,71,86));
     }//GEN-LAST:event_btnSoyClienteMouseExited
 
     private void rbtImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtImprimirActionPerformed
