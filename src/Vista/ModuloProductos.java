@@ -11,6 +11,8 @@ import static Vista.ModuloReporteProdTotal.tablaProd;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -32,7 +34,7 @@ public class ModuloProductos extends javax.swing.JPanel {
     
     void mostrarProd(){
         try {
-            m = prodMod.consultarReporProdTotal();
+            m = prodMod.consultarProductos();
             tablaProd.setModel(m);
 
             TableColumn t = tablaProd.getColumn("ID PROD");
@@ -40,12 +42,12 @@ public class ModuloProductos extends javax.swing.JPanel {
             t.setMaxWidth(90);
             t.setMinWidth(90);
 
-            TableColumn t2 = tablaProd.getColumn("CANTIDAD");
-            t2.setPreferredWidth(120);
-            t2.setMaxWidth(120);
-            t2.setMinWidth(120);
+            TableColumn t2 = tablaProd.getColumn("PRECIO");
+            t2.setPreferredWidth(100);
+            t2.setMaxWidth(100);
+            t2.setMinWidth(100);
 
-            TableColumn t3 = tablaProd.getColumn("TOTAL");
+            TableColumn t3 = tablaProd.getColumn("ESTADO");
             t3.setPreferredWidth(120);
             t3.setMaxWidth(120);
             t3.setMinWidth(120);
@@ -189,14 +191,20 @@ public class ModuloProductos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
-        ModuloMain mm = new ModuloMain();
+        ImageIcon ico = new ImageIcon("src/Imagen/CerrarSesion.png");
+        String [] arregloOpc = {"Cerrar Sesión", "Cancelar"};
+        int op = JOptionPane.showOptionDialog(null, " \n¿Seguro que desea Cerrar Sesión?\n ", "Cerrar Sesión", 0, JOptionPane.QUESTION_MESSAGE, ico, arregloOpc, "Cancelar");
+        
+        if(op == 0){
+            ModuloMain mm = new ModuloMain();
 
-        mm.setSize(new Dimension(1300, 800));
-        mm.setLocation(0,0);
-        Main.Fondo.removeAll();
-        Main.Fondo.add(mm, BorderLayout.CENTER);
-        Main.Fondo.revalidate();
-        Main.Fondo.repaint();
+            mm.setSize(new Dimension(1300, 800));
+            mm.setLocation(0,0);
+            Main.Fondo.removeAll();
+            Main.Fondo.add(mm, BorderLayout.CENTER);
+            Main.Fondo.revalidate();
+            Main.Fondo.repaint();
+        }
     }//GEN-LAST:event_atrasMouseClicked
 
     private void atrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseEntered

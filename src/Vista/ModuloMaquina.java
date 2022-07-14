@@ -10,6 +10,8 @@ import Modelo.maquinaMod;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -464,14 +466,20 @@ public class ModuloMaquina extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
-        ModuloMain mm = new ModuloMain();
+        ImageIcon ico = new ImageIcon("src/Imagen/CerrarSesion.png");
+        String [] arregloOpc = {"Cerrar Sesión", "Cancelar"};
+        int op = JOptionPane.showOptionDialog(null, " \n¿Seguro que desea Cerrar Sesión?\n ", "Cerrar Sesión", 0, JOptionPane.QUESTION_MESSAGE, ico, arregloOpc, "Cancelar");
+        
+        if(op == 0){
+            ModuloMain mm = new ModuloMain();
 
-        mm.setSize(new Dimension(1300, 800));
-        mm.setLocation(0,0);
-        Main.Fondo.removeAll();
-        Main.Fondo.add(mm, BorderLayout.CENTER);
-        Main.Fondo.revalidate();
-        Main.Fondo.repaint();
+            mm.setSize(new Dimension(1300, 800));
+            mm.setLocation(0,0);
+            Main.Fondo.removeAll();
+            Main.Fondo.add(mm, BorderLayout.CENTER);
+            Main.Fondo.revalidate();
+            Main.Fondo.repaint();
+        }
     }//GEN-LAST:event_atrasMouseClicked
 
     private void atrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseEntered

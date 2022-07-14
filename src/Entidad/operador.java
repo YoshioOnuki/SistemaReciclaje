@@ -11,7 +11,7 @@ package Entidad;
  */
 public class operador {
     private int OperID;
-    private char OperDNI;
+    private String OperDNI;
     private String OperNom;
     private String OperApe;
     private String OperDirec;
@@ -19,7 +19,7 @@ public class operador {
     public operador() {
     }
 
-    public operador(int OperID, char OperDNI, String OperNom, String OperApe, String OperDirec) {
+    public operador(int OperID, String OperDNI, String OperNom, String OperApe, String OperDirec) {
         this.OperID = OperID;
         this.OperDNI = OperDNI;
         this.OperNom = OperNom;
@@ -35,11 +35,11 @@ public class operador {
         this.OperID = OperID;
     }
 
-    public char getOperDNI() {
+    public String getOperDNI() {
         return OperDNI;
     }
 
-    public void setOperDNI(char OperDNI) {
+    public void setOperDNI(String OperDNI) {
         this.OperDNI = OperDNI;
     }
 

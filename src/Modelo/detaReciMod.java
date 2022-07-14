@@ -67,4 +67,29 @@ public class detaReciMod {
 
         return o;
     }
+    
+    //Haciendo la consulta para mostrar los datos de los productos en una tabla
+    public Object[] consultarReporProdDia(String fecha, int n){
+        Object[] o = new Object[2];
+        
+        String sql = "SELECT SUM(d.DetaReciCant), SUM(d.DetaReciImpor) FROM detareci d INNER JOIN recibo r ON d.ReciID=r.ReciID WHERE r.ReciFecha=? AND d.ProdID=?";
+   
+        try {
+            acce = con.conectardb();
+            ps = acce.prepareStatement(sql);
+            ps.setString(1, fecha);
+            ps.setInt(2, n);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                o[0] = rs.getInt(1);
+                o[1] = rs.getDouble(2);
+            }
+            //Cerramos la conexion
+            acce.close();
+        } catch (Exception e) {
+            System.out.println("error consultar datos de sumatorias de cantidad e importe del detalle de recibo: " + e);
+        }
+
+        return o;
+    }
 }

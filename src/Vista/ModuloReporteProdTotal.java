@@ -174,14 +174,23 @@ public class ModuloReporteProdTotal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
-        ModuloMain mm = new ModuloMain();
+        ModuloInicio mIni = new ModuloInicio();
 
-        mm.setSize(new Dimension(1300, 800));
-        mm.setLocation(0,0);
-        Main.Fondo.removeAll();
-        Main.Fondo.add(mm, BorderLayout.CENTER);
-        Main.Fondo.revalidate();
-        Main.Fondo.repaint();
+        mIni.setSize(new Dimension(1300, 680));
+        mIni.setLocation(0,0);
+        ModuloOpeDash.Principal.removeAll();
+        ModuloOpeDash.Principal.add(mIni, BorderLayout.CENTER);
+        ModuloOpeDash.Principal.revalidate();
+        ModuloOpeDash.Principal.repaint();
+        
+        ModuloEncabe mEnca = new ModuloEncabe();
+
+        mEnca.setSize(new Dimension(1300, 200));
+        mEnca.setLocation(0,0);
+        ModuloOpeDash.Encabe.removeAll();
+        ModuloOpeDash.Encabe.add(mEnca, BorderLayout.CENTER);
+        ModuloOpeDash.Encabe.revalidate();
+        ModuloOpeDash.Encabe.repaint();
     }//GEN-LAST:event_atrasMouseClicked
 
     private void atrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseEntered
