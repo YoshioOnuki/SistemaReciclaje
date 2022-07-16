@@ -24,6 +24,8 @@ public class ModuloProductos extends javax.swing.JPanel {
 
     DefaultTableModel m = new DefaultTableModel();
     Modelo.productoMod prodMod = new productoMod();
+    public static int id;
+    public static String prod;
     
     
     public ModuloProductos() {
@@ -57,6 +59,28 @@ public class ModuloProductos extends javax.swing.JPanel {
             System.out.println("Error al mostrar productos: " + e);
         }
         
+    }
+    
+    
+    void OpcEmpSal(int opc){
+        int fila = tablaProd.getSelectedRow();
+        if(fila == -1){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        }else{
+            if(opc == 1){
+                id = Integer.parseInt(tablaProd.getValueAt(fila, 0).toString());
+                prod = tablaProd.getValueAt(fila,1).toString();
+                
+                ModuloProductosActualizar mProdAc = new ModuloProductosActualizar();
+
+                mProdAc.setSize(new Dimension(1300, 680));
+                mProdAc.setLocation(0,0);
+                ModuloOpeDash.Principal.removeAll();
+                ModuloOpeDash.Principal.add(mProdAc, BorderLayout.CENTER);
+                ModuloOpeDash.Principal.revalidate();
+                ModuloOpeDash.Principal.repaint();
+            }
+        }
     }
     
     
@@ -216,7 +240,7 @@ public class ModuloProductos extends javax.swing.JPanel {
     }//GEN-LAST:event_atrasMouseExited
 
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
-        // TODO add your handling code here:
+        OpcEmpSal(1);
     }//GEN-LAST:event_actualizarActionPerformed
 
 
