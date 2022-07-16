@@ -25,6 +25,7 @@ public class ModuloProductos extends javax.swing.JPanel {
     DefaultTableModel m = new DefaultTableModel();
     Modelo.productoMod prodMod = new productoMod();
     public static int id;
+    public static double precio;
     public static String prod;
     
     
@@ -70,6 +71,7 @@ public class ModuloProductos extends javax.swing.JPanel {
             if(opc == 1){
                 id = Integer.parseInt(tablaProd.getValueAt(fila, 0).toString());
                 prod = tablaProd.getValueAt(fila,1).toString();
+                precio = Double.parseDouble(tablaProd.getValueAt(fila, 2).toString());
                 
                 ModuloProductosActualizar mProdAc = new ModuloProductosActualizar();
 

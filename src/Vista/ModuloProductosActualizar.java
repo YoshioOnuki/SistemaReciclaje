@@ -24,9 +24,10 @@ public class ModuloProductosActualizar extends javax.swing.JPanel {
 
     DefaultTableModel m = new DefaultTableModel();
     Modelo.productoMod prodMod = new productoMod();
-    ModuloProductos mProd = new ModuloProductos();
-    int id = mProd.id;
-    String prod = mProd.prod;
+    ModuloProductos moduloProd = new ModuloProductos();
+    int id = moduloProd.id;
+    double precio = moduloProd.precio;
+    String prod = moduloProd.prod;
     
     
     public ModuloProductosActualizar() {
@@ -36,10 +37,36 @@ public class ModuloProductosActualizar extends javax.swing.JPanel {
 
     
     void mostrarProd(){
-        Textp txte = new Textp("0.00", txtPrecio);
+        Textp txte = new Textp(String.format("%.2f", precio), txtPrecio);
         txtProd.setText(prod);
     }
     
+    void actualizarProd(){
+        
+        if(txtPrecio.getText().isEmpty()){
+            ImageIcon icon1 = new ImageIcon("src/Imagen/IconJOP.png");
+            JOptionPane.showMessageDialog(null, "Campos de textos vacìos", "¡Espere!",JOptionPane.WARNING_MESSAGE, icon1);
+        }else{
+            Object o = new Object();
+            o = txtPrecio.getText();
+
+            int p = prodMod.updateProd(o, id);
+
+            if(p > 0){
+                ImageIcon icon1 = new ImageIcon("src/Imagen/Actualizar.png");
+                JOptionPane.showMessageDialog(null, "El producto se actualizò correctamente", "¡Actualizando!",JOptionPane.WARNING_MESSAGE, icon1);
+                ModuloProductos mProd = new ModuloProductos();
+
+                mProd.setSize(new Dimension(1300, 680));
+                mProd.setLocation(0,0);
+                ModuloOpeDash.Principal.removeAll();
+                ModuloOpeDash.Principal.add(mProd,BorderLayout.CENTER);
+                ModuloOpeDash.Principal.revalidate();
+                ModuloOpeDash.Principal.repaint();
+            }
+        }
+        
+    }    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -170,7 +197,7 @@ public class ModuloProductosActualizar extends javax.swing.JPanel {
         lblAgregar1.setFont(new java.awt.Font("SF UI Display", 1, 20)); // NOI18N
         lblAgregar1.setForeground(new java.awt.Color(255, 255, 255));
         lblAgregar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAgregar1.setText("Actializar");
+        lblAgregar1.setText("Actualizar");
 
         javax.swing.GroupLayout btnActualizarLayout = new javax.swing.GroupLayout(btnActualizar);
         btnActualizar.setLayout(btnActualizarLayout);
@@ -272,16 +299,7 @@ public class ModuloProductosActualizar extends javax.swing.JPanel {
 
     private void btnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseClicked
         //Actualizamos producto
-        
-        
-        ModuloProductos mProd = new ModuloProductos();
-
-        mProd.setSize(new Dimension(1300, 680));
-        mProd.setLocation(0,0);
-        ModuloOpeDash.Principal.removeAll();
-        ModuloOpeDash.Principal.add(mProd,BorderLayout.CENTER);
-        ModuloOpeDash.Principal.revalidate();
-        ModuloOpeDash.Principal.repaint();
+        actualizarProd();
     }//GEN-LAST:event_btnActualizarMouseClicked
 
     private void btnActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseEntered

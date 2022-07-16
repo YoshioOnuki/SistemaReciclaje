@@ -90,7 +90,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
             
             epro = modpro.validarProducto(regActual);
             this.txtNombre.setText("" + epro.getProdDesc());
-            this.txtPrecio.setText("" + epro.getProdPrec());
+            this.txtPrecio.setText(String.format("%.2f", epro.getProdPrec()));
             this.txtNombre.setForeground(new Color(0,0,0));
             this.txtPrecio.setForeground(new Color(0,0,0));
             this.fotoObj.setBackground(new Color(255,255,255));
@@ -205,7 +205,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
                                 ob[0] = regActual;
                                 ob[1] = nombre;
                                 ob[2] = 1;
-                                ob[3] = precio;
+                                ob[3] = String.format("%.2f", precio);
 
                                 mpro.addRow(ob);
                                 tablaProd.setModel(mpro);

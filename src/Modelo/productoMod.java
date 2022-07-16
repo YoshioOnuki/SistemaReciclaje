@@ -93,7 +93,7 @@ public class productoMod {
             while(rs.next()){
                 o[0] = rs.getInt(1);
                 o[1] = rs.getString(2);
-                o[2] = rs.getDouble(3);
+                o[2] = String.format("%.2f", rs.getDouble(3));
                 o[3] = estado;
                 
                 m.addRow(o);
@@ -178,6 +178,25 @@ public class productoMod {
         return m;
     }
     
-    
+    //Actualizamos el precio del Producto
+    public int updateProd(Object ob, int prodID) {
+        int r = 0;
+        
+        String sql = "UPDATE producto SET ProdPrec=? WHERE ProdID=?";
+        
+        try {
+            acce = con.conectardb();
+            ps = acce.prepareStatement(sql);
+            ps.setObject(1, ob);
+            ps.setObject(2, prodID);
+            r = ps.executeUpdate();
+            //Cerramos la conexion
+            acce.close();
+        } catch (Exception e) {
+            System.out.println("Error actualizar el precio del producto "+ prodID + ": " + e);
+        }
+        
+        return r;
+    }
     
 }

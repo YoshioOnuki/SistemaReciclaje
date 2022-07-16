@@ -57,7 +57,7 @@ public class detaReciMod {
             rs = ps.executeQuery();
             while(rs.next()){
                 o[0] = rs.getInt(1);
-                o[1] = rs.getDouble(2);
+                o[1] = String.format("%.2f", rs.getDouble(2));
             }
             //Cerramos la conexion
             acce.close();
@@ -82,7 +82,7 @@ public class detaReciMod {
             rs = ps.executeQuery();
             while(rs.next()){
                 o[0] = rs.getInt(1);
-                o[1] = rs.getDouble(2);
+                o[1] = String.format("%.2f", rs.getDouble(2));
             }
             //Cerramos la conexion
             acce.close();
