@@ -161,6 +161,11 @@ public class ModuloProductosActualizar extends javax.swing.JPanel {
                 txtPrecioActionPerformed(evt);
             }
         });
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -309,6 +314,10 @@ public class ModuloProductosActualizar extends javax.swing.JPanel {
     private void btnActualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseExited
         btnActualizar.setBackground(new Color(51,71,86));
     }//GEN-LAST:event_btnActualizarMouseExited
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+
+    }//GEN-LAST:event_txtPrecioKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

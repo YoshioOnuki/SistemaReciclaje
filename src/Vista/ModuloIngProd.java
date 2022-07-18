@@ -120,7 +120,7 @@ public class ModuloIngProd extends javax.swing.JPanel {
         int inicio = 1, fin = 100, estd = 2, a = 1;
         int at = (int) (Math.random() * (inicio - fin + 1) + fin);
         
-        if(at >= inicio && at <= 5){
+        if(at >= inicio && at <= 0){
             Object ob = new Object();
             ob = estd;
             a = maqMod.updateAtasco(ob);

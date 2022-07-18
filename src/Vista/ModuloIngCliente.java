@@ -772,6 +772,11 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         txtDNI.setMaximumSize(new java.awt.Dimension(220, 29));
         txtDNI.setMinimumSize(new java.awt.Dimension(220, 29));
         txtDNI.setPreferredSize(new java.awt.Dimension(220, 29));
+        txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDNIKeyTyped(evt);
+            }
+        });
 
         nombre.setFont(new java.awt.Font("SF UI Display", 1, 18)); // NOI18N
         nombre.setText("Nombres  *");
@@ -780,6 +785,11 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         txtNombre.setMaximumSize(new java.awt.Dimension(300, 29));
         txtNombre.setMinimumSize(new java.awt.Dimension(300, 29));
         txtNombre.setPreferredSize(new java.awt.Dimension(300, 29));
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         apellido.setFont(new java.awt.Font("SF UI Display", 1, 18)); // NOI18N
         apellido.setText("Apellidos  *");
@@ -788,6 +798,11 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         txtApe.setMaximumSize(new java.awt.Dimension(300, 29));
         txtApe.setMinimumSize(new java.awt.Dimension(300, 29));
         txtApe.setPreferredSize(new java.awt.Dimension(300, 29));
+        txtApe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApeKeyTyped(evt);
+            }
+        });
 
         direccion.setFont(new java.awt.Font("SF UI Display", 1, 18)); // NOI18N
         direccion.setText("Dirección  *");
@@ -1031,6 +1046,28 @@ public class ModuloIngCliente extends javax.swing.JPanel {
         email.setVisible(true);
         txtEmail.setVisible(true);
     }//GEN-LAST:event_rbtCorreoActionPerformed
+
+    private void txtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIKeyTyped
+        char c = evt.getKeyChar();
+        if(c<'0' || c>'9'){
+            evt.consume();
+        }
+        if(txtDNI.getText().length() >= 8){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDNIKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'a' || c>'z') &&(c<'A' || c>'Z'))
+            evt.consume();
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApeKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'a' || c>'z') &&(c<'A' || c>'Z'))
+            evt.consume();
+    }//GEN-LAST:event_txtApeKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
